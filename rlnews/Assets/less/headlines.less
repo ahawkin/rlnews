@@ -1,0 +1,155 @@
+﻿.headlines {
+
+    .feed-options {
+        padding-bottom:7px;
+        border-top:1px solid @border1;
+        border-bottom:1px solid @border1;
+
+        a {
+            margin-right:25px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid transparent;
+            color:@grey;
+
+            &:hover {
+            text-decoration: none;
+            color:@dark-grey;
+            border-bottom: 3px solid @primary1;
+            }
+
+            i {
+                margin-left:3px;
+            }
+        }
+
+        label {
+            float:right;
+            margin-right: 15px;
+            margin-top: 20.5px;
+            font-weight:normal;
+        }
+
+        select {
+            margin-top:13.5px;
+            padding: 6px 40px 8px 10px;
+            border: 1px solid transparent;
+            border-radius: 25px;
+            float:right;
+            background-color:@light-grey;
+            color:@dark-grey;
+        }
+
+        .active-option {
+            border-bottom: 3px solid @primary1 !important;
+            color:@dark-grey !important;
+        }
+
+        .option-divider {
+            margin: 21px 25px 0 0;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color:@dark-grey;
+            display: inline-block;
+        }
+    }
+
+    .news-feed {
+        .news-item {
+            display:block;
+            width:100%;
+            padding: 15px 0 4px 0;
+            border-top:1px solid transparent;
+            border-bottom:1px solid @border1;
+            margin-top: -1px; 
+
+            &:hover {
+                border-top:1px solid @border2;
+                border-bottom:1px solid @border2;
+                cursor:pointer;
+            }
+
+            .item-img {
+                display:inline-block;
+                width:12%;
+            }
+
+            .item-content {
+                display:inline-block;
+                width:72%;
+
+                h3 {
+                    margin-top:0;
+                }
+            }
+
+            .item-options {
+                z-index:9999;
+                display:inline-block;
+                width:15%;
+                float:right;
+                margin-top:22px;
+
+                a {
+                    display:inline-block;
+                }
+
+                .favourite-btn {
+                    padding: 8px 15px !important;
+                    border: 3px solid transparent !important;
+                    background:@primary1;
+                    border-radius: 0;
+
+                    i {
+                        color:@light-grey;
+                    }
+
+                    &:hover{
+                        background:@primary1-light;
+                        i {
+                            color:@primary2;
+                        }
+                    }
+
+                }
+
+                .share-btn {
+                    padding: 8px 15px !important;
+                    border: 3px solid transparent !important;
+                    background:@primary1;
+                    border-radius: 25px;
+                    color:@light-grey !important;
+                    border-bottom-right-radius:0;
+                    border-top-right-radius:0;
+                    &:hover {
+                        background:@primary1-light;
+                        text-decoration:none;
+                    }
+                }
+
+                .expand-btn {
+                    padding: 8px 15px !important;
+                    border: 3px solid transparent !important;
+                    background:@primary1;
+                    border-radius: 25px;
+                    color:@light-grey !important;
+                    border-bottom-left-radius:0;
+                    border-top-left-radius:0;
+                    &:hover {
+                        background:@primary1-light;
+                        text-decoration:none;
+                    }
+                }
+            }
+        }
+
+        .item-first {
+            margin-top:1px;
+            border-top:1px solid @border1 !important;
+            &:hover {
+                border-top:1px solid @border2 !important;
+            }
+        }
+
+    }
+}

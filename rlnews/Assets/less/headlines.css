@@ -1,0 +1,37 @@
+﻿.headlines .feed-options {
+  padding: 0 0 15px 0;
+  background-color: rgba(0, 0, 0, 0.35);
+}
+.headlines .feed-options a {
+  margin: 30px 25px 0 0;
+  padding-bottom: 28px;
+  border-bottom: 3px solid transparent;
+  color: #ffffff;
+}
+.headlines .feed-options a:hover {
+  text-decoration: none;
+  color: #ffffff;
+  border-bottom: 3px solid #ffffff;
+}
+.headlines .feed-options select {
+  margin-top: 23px;
+  padding: 6px 40px 8px 10px;
+  border: 1px solid #D8D8D8;
+  border-radius: 25px;
+  float: right;
+  background-color: transparent;
+  color: #ffffff;
+}
+.headlines .feed-options .active-option {
+  border-bottom: 3px solid #ffffff !important;
+  color: #ffffff !important;
+}
+.headlines .feed-options .option-divider {
+  margin: 30px 25px 0 0;
+  padding-bottom: 15px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #ffffff;
+  display: inline-block;
+}
+/*# sourceMappingURL=headlines.css.map */
