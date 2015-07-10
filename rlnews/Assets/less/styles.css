@@ -34,6 +34,9 @@ p {
 a {
   cursor: pointer;
 }
+a:hover {
+  text-decoration: none;
+}
 label {
   color: #4e515e;
 }
@@ -68,7 +71,7 @@ label {
   text-align: center;
 }
 .rl-header {
-  padding: 120px 0 119px 0;
+  padding: 110px 0 109px 0;
   background: url(../img/headlines.png);
   background-position: left bottom;
   background-size: cover;
@@ -270,10 +273,17 @@ label {
 .top-headlines .top-item .item-content .item-link {
   margin-top: 0;
   color: #15a4fa;
-  font-size: 20px;
 }
 .top-headlines .top-item .item-content .item-link:hover {
   color: #3eb6ff;
+  text-decoration: underline;
+}
+.top-headlines .top-item .item-content .source {
+  margin-top: 0;
+  color: #2f3949;
+}
+.top-headlines .top-item .item-content .source:hover {
+  color: #2f3949;
   text-decoration: underline;
 }
 .top-headlines .top-item .item-content p {
@@ -281,7 +291,7 @@ label {
   font-size: 14px;
 }
 .rl-advert {
-  padding: 45px 0 60px 0;
+  padding: 26px 0 45px 0;
   margin: 10px 0 26px 0;
   text-align: center;
   border: 1px solid #d8dfe5;
@@ -304,7 +314,7 @@ label {
 }
 .upcoming-fixtures h3 a:hover {
   color: #3eb6ff;
-  text-decoration: none;
+  text-decoration: underline;
 }
 .upcoming-fixtures .fixture {
   width: 100%;
@@ -391,6 +401,14 @@ label {
 }
 .headlines .news-feed .news-item .item-content .item-link:hover {
   color: #3eb6ff;
+  text-decoration: underline;
+}
+.headlines .news-feed .news-item .item-content .source {
+  margin-top: 0;
+  color: #2f3949;
+}
+.headlines .news-feed .news-item .item-content .source:hover {
+  color: #2f3949;
   text-decoration: underline;
 }
 .headlines .news-feed .news-item .item-options {

@@ -23,6 +23,10 @@ p {
 
 a {
     cursor:pointer;
+
+    &:hover {
+        text-decoration:none;
+    }
 }
 
 label {
@@ -66,7 +70,7 @@ label {
 }
 
 .rl-header {
-    padding:120px 0 119px 0;
+    padding:110px 0 109px 0;
     background:url(../img/headlines.png);
     background-position: left bottom;
     background-size: cover;
@@ -308,9 +312,19 @@ label {
             .item-link {
                 margin-top:0;
                 color:@primary1;
-                font-size:20px;
+
                 &:hover {
-                color:@primary1-light;
+                    color:@primary1-light;
+                    text-decoration:underline;
+                }
+            }
+
+            .source {
+                margin-top:0;
+                color:@primary2-dark;
+
+                &:hover {
+                color:@primary2-dark;
                 text-decoration:underline;
                 }
             }
@@ -324,7 +338,7 @@ label {
 }
 
 .rl-advert {
-    padding:45px 0 60px 0;
+    padding:26px 0 45px 0;
     margin:10px 0 26px 0;
     text-align:center;
     border:1px solid @border1;
@@ -350,7 +364,7 @@ label {
 
             &:hover {
                 color:@primary1-light;
-                text-decoration:none;
+                text-decoration:underline;
             }
         }
     }
