@@ -55,6 +55,10 @@ label {
     bottom: 0;
     background-color:@light-grey;
     border-left:1px solid @border1;
+
+    .side-container {
+        padding:0 30px;
+    }
 }
 
 .center-text {
@@ -200,6 +204,25 @@ label {
     }
 }
 
+.advert-btn {
+    font-size:18px;
+    padding: 8px 15px !important;
+    margin:6px 5px 0 5px;
+    border: 3px solid transparent !important;
+    background:@primary1 !important;
+    border-radius: 25px;
+    color:@light-grey !important;
+    &:hover {
+        background:@primary1-light !important;
+        color:@light-grey !important;
+        text-decoration:none;
+    }
+
+    i {
+        margin-right: 10px;
+    }
+}
+
 /* FOOTER */
 
 .rl-footer {
@@ -251,4 +274,100 @@ label {
             }
         }
     }
+}
+
+/* SIDEBAR STYLES */
+
+.top-headlines {
+    .col-md-2,
+    .col-md-10 {
+        padding:0;
+    }
+
+    h3 {
+        font-size:22px;
+        margin:20px 0;
+        padding-bottom:10px;
+        border-bottom:1px solid @border1;
+    }
+
+    .top-item {
+        padding-bottom:10px;
+
+        .item-num {
+            padding: 8px 17px;
+            margin-right: 5px;
+            font-size:19px;
+            background: @border1;
+            border-radius: 25px;
+            color: @primary2;
+            display:inline-block;
+        }
+
+        .item-content {
+            .item-link {
+                margin-top:0;
+                color:@primary1;
+                font-size:20px;
+                &:hover {
+                color:@primary1-light;
+                text-decoration:underline;
+                }
+            }
+
+            p {
+                margin-top:-7px;
+                font-size:14px;
+            }
+        }
+    }
+}
+
+.rl-advert {
+    padding:45px 0 60px 0;
+    margin:10px 0 26px 0;
+    text-align:center;
+    border:1px solid @border1;
+    border-radius: 6px;
+
+    h3{
+        margin:0 0 30px 0;
+    }
+}
+
+.upcoming-fixtures {
+    h3 {
+        font-size:22px;
+        margin:20px 0;
+        padding-bottom:10px;
+        border-bottom:1px solid @border1;
+
+        a {
+            float:right;
+            margin-top:3px;
+            font-size:16px;
+            color:@primary1;
+
+            &:hover {
+                color:@primary1-light;
+                text-decoration:none;
+            }
+        }
+    }
+
+    .fixture {
+        width:100%;
+        display:block;
+        margin-bottom:10px;
+
+        .col-md-2,
+        .col-md-8 {
+            padding:0;
+        }
+
+        p{
+            margin-top:-5px;
+        }
+    }
+
 }
