@@ -57,6 +57,10 @@ label {
     border-left:1px solid @border1;
 }
 
+.center-text {
+    text-align:center;
+}
+
 .rl-header {
     padding:120px 0 119px 0;
     background:url(../img/headlines.png);
@@ -197,3 +201,54 @@ label {
 }
 
 /* FOOTER */
+
+.rl-footer {
+    margin-top: 40px;
+    padding:25px 0;
+    background-color:@primary2;
+    font-size:18px;
+
+    .footer-copy {
+        text-align:center;
+        p {
+            display:inline-block;
+            text-align:center; 
+            color:@light-grey !important;
+            margin:4px 0 0 0;
+        }
+
+    }
+
+    .footer-brand {
+        color:@light-grey !important;
+        margin-top:4px;
+        display:block;
+
+        &:hover {
+            text-decoration:none;
+            color:@white;
+            i {
+                color:@primary1-light;
+            }
+        }
+
+        i {
+            color:@primary1;
+        }
+    }
+
+    .social-links {
+        display:inline-block;
+        text-align:right;
+        margin-top:3px;
+
+        a {
+            margin-left:10px;
+            color:@primary1;
+
+            &:hover {
+                color:@primary1-light;
+            }
+        }
+    }
+}

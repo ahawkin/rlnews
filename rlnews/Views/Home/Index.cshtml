@@ -30,6 +30,7 @@
         <div class="sm-container">
             <div class="titlebar">
                 <h2>All News - Latest</h2>
+                <p class="feed-update">Last Updated: 5 minutes ago</p>
             </div>
             <div class="news-feed">
                 <div class="news-item item-first">
@@ -286,13 +287,24 @@
                             <a href="#" class="expand-btn"><i class="fa fa-angle-double-down"></i></a>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
-            <footer>
-                <hr/>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
         </div>
+        <footer class="rl-footer clearfix">
+            <div class="sm-container">
+                <div class="col-md-4">
+                    <a href="home" class="footer-brand">RLNews <i class="fa fa-rss"></i></a>
+                </div>
+                <div class="col-md-4 footer-copy">
+                        <p>Copyright &copy; @DateTime.Now.Year - RLNews.co.uk</p>
+                </div>
+                <div class="col-md-4 social-links">
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+        </footer>
     </div>
     <div class="col-right">
         <div class="sm-container">
