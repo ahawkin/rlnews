@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -173,41 +174,32 @@
   <ItemGroup>
     <Content Include="Assets\css\bootstrap.css" />
     <Content Include="Assets\css\bootstrap.min.css" />
-    <Content Include="Assets\css\styles.css" />
+    <Content Include="Assets\css\styles.min.css" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\img\headlines.jpg" />
     <Content Include="Assets\img\headlines.png" />
     <Content Include="Assets\img\item.jpg" />
-    <Content Include="Assets\less\global.css">
-      <DependentUpon>global.less</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\global.min.css">
-      <DependentUpon>global.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\headlines.css">
-      <DependentUpon>headlines.less</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\headlines.min.css">
-      <DependentUpon>headlines.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\settings.css">
-      <DependentUpon>settings.less</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\settings.min.css">
-      <DependentUpon>settings.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\styles.css">
-      <DependentUpon>styles.less</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\styles.min.css">
-      <DependentUpon>styles.css</DependentUpon>
-    </Content>
+    <Content Include="Assets\img\teams\logos\wakefield.gif" />
+    <Content Include="Assets\img\teams\logos\wolves.gif" />
+    <Content Include="Assets\js\app.min.js" />
+    <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\bootstrap.min.js" />
+    <None Include="Assets\js\jquery-1.10.2.intellisense.js" />
+    <Content Include="Assets\js\jquery-1.10.2.js" />
+    <Content Include="Assets\js\jquery-1.10.2.min.js" />
+    <None Include="Assets\js\jquery.validate-vsdoc.js" />
+    <Content Include="Assets\js\jquery.validate.js" />
+    <Content Include="Assets\js\jquery.validate.min.js" />
+    <Content Include="Assets\js\jquery.validate.unobtrusive.js" />
+    <Content Include="Assets\js\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Assets\js\modernizr-2.6.2.js" />
+    <Content Include="Assets\js\respond.js" />
+    <Content Include="Assets\js\respond.min.js" />
+    <None Include="Assets\js\_references.js" />
+    <Content Include="Assets\src\js\test1.js" />
+    <Content Include="Assets\src\js\test2.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Assets\less\styles.less" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -245,25 +237,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Assets\less\styles.css.map">
-      <DependentUpon>styles.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\settings.less" />
-    <Content Include="Assets\less\global.less" />
-    <Content Include="Assets\less\global.css.map">
-      <DependentUpon>global.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\headlines.less" />
-    <Content Include="Assets\less\headlines.css.map">
-      <DependentUpon>headlines.css</DependentUpon>
-    </Content>
-    <Content Include="Assets\less\settings.css.map">
-      <DependentUpon>settings.css</DependentUpon>
-    </Content>
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Assets\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Assets\js\jquery-1.10.2.min.map" />
+    <Content Include="Assets\src\less\global.less" />
+    <Content Include="Assets\src\less\headlines.less" />
+    <Content Include="Assets\src\less\settings.less" />
+    <Content Include="Assets\src\less\styles.less" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <PropertyGroup>

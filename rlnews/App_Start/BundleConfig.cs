@@ -23,9 +23,12 @@ namespace rlnews
                       "~/Assets/js/bootstrap.js",
                       "~/Assets/js/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Assets/css/bootstrap.css",
-                      "~/Assets/css/styles.css"));
+                      "~/Assets/css/styles.min.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/js").Include(
+                      "~/Assets/js/app.min.js"));
         }
     }
 }
