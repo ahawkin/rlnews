@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel.Syndication;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Linq;
+using rlnews.Models;
 
 namespace rlnews.Controllers
 {
@@ -10,7 +14,16 @@ namespace rlnews.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new RssModel();
+            string strFeed = "http://feeds.bbci.co.uk/sport/0/rugby-league/rss.xml?edition=uk";
+            using (XmlReader reader = XmlReader.Create(strFeed))
+            {
+                SyndicationFeed rssData = SyndicationFeed.Load(reader);
+ 
+                model.RssFeed = rssData;
+            }
+
+            return View(model);
         }
 
         public ActionResult About()
