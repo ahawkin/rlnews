@@ -1,0 +1,90 @@
+﻿@using rlnews.Models
+@model IEnumerable<Rss>
+@{
+    ViewBag.Title = "Home Page";
+}
+<section class="headlines clearfix">
+    <div class="col-left">
+        <div class="rl-header">
+            <div class="sm-container">
+                <h1>News Headlines</h1>
+                <p>for the Rugby Super League and the Championship</p>
+            </div>
+        </div>
+        <div class="feed-options">
+            <div class="sm-container">
+                <a class="active-option">All News</a>
+                <a>Super League</a>
+                <a>Championship</a>
+                <a>Challenge Cup</a>
+                <div class="option-divider"> | </div>
+                <a>Create Feed <i class="fa fa-plus"></i></a>
+                <select>
+                    <option>Latest News</option>
+                    <option>Past 24h</option>
+                    <option>Past Week</option>
+                    <option>Past Month</option>
+                    <option>Past Year</option>
+                </select>
+                <label><i class="fa fa-filter"></i> Filter:</label>
+            </div>
+        </div>
+        <div class="sm-container">
+            <div class="titlebar">
+                <h2>All News - Latest</h2>
+                <p class="feed-update">Last Updated: 5 minutes ago</p>
+            </div>
+            <div class="news-feed">
+                @{
+                    var count = 0;
+                    foreach (var item in Model.Take(15))
+                    {
+                        count++;
+                        <div class="news-item @(count == 1 ? "item-first" : "")">
+                            <div class="item-img">
+                                <a href="@item.Link">
+                                    <img src="@item.Image" class="img-responsive img-rounded"/>
+                                </a>
+                            </div>
+                            <div class="item-content">
+                                <a href="@item.Link">
+                                    <h3 class="item-link">@item.Title</h3></a>
+                                <p>@item.Description</p>
+                                <p class="meta">
+                                    <a href="#" class="source"><i class="fa fa-rss meta-icon"></i>BBC Sport</a> - @item.PubDate.AsDateTime().Day/@item.PubDate.AsDateTime().Month/@item.PubDate.AsDateTime().Year
+                                    <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (12)</a>
+                                    <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
+                                    <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
+                                </p>
+                            </div>
+                            <div class="item-options">
+                                <div class="pull-right">
+                                    <a href="#" class="like-btn"><i class="fa fa-arrow-up"></i></a>
+                                    <a href="#" class="score-btn">100</a>
+                                    <a href="#" class="dislike-btn"><i class="fa fa-arrow-down"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <footer class="rl-footer clearfix">
+            <div class="sm-container">
+                <div class="col-md-4">
+                    <a href="home" class="footer-brand">RLNews <i class="fa fa-rss"></i></a>
+                </div>
+                <div class="col-md-4 footer-copy">
+                    <p>Copyright &copy; @DateTime.Now.Year - RLNews.co.uk</p>
+                </div>
+                <div class="col-md-4 social-links">
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @Html.Partial("_SidebarPartial")
+</section>
+

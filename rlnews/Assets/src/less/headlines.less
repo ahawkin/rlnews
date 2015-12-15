@@ -57,9 +57,9 @@
     .news-feed {
         
         .news-item {
-            display:block;
+            display:table;
             width:100%;
-            padding: 15px 0 4px 0;
+            padding: 20px 0 20px 0;
             border-top:1px solid transparent;
             border-bottom:1px solid @border1;
             margin-top: -1px; 
@@ -71,16 +71,18 @@
             }
 
             .item-img {
-                display:inline-block;
-                width:12%;
+                display: table-cell;
+                vertical-align: middle;
+                width:11%;
             }
 
             .item-content {
                 display:inline-block;
-                width:72%;
+                width:81%;
+                margin-left:20px;
 
                 .item-link {
-                    margin-top:0;
+                    margin-top:-5px;
                     color:@primary1;
                     font-size:22px;
 
@@ -90,48 +92,65 @@
                     }
                 }
 
-                .source {
-                    margin-top:0;
-                    color:@primary2-dark;
+                .meta {
+                    margin-bottom: 0 !important;
+                    font-size:14px;
 
-                    &:hover {
+                    .meta-icon {
+                        background-color: @border1;
+                        color: @dark-grey;
+                        font-size: 13px;
+                        padding: 4px;
+                        border-radius: 37px;
+                        margin:0 6px 0 10px;
+                    }
+
+                    .fa-rss {
+                        margin-left: 0 !important;
+                        padding:4px 5.5px;
+                    }
+
+                    .fa-share-alt {
+                        padding:4px 6px 4px 4px;
+                    }
+               
+                    a{
+                        margin-top:0;
                         color:@primary2-dark;
-                        text-decoration:underline;
+
+                        &:hover {
+                            color:@primary2-dark;
+                            text-decoration:underline;
+                        }
                     }
                 }
             }
 
             .item-options {
                 z-index:9999;
-                display:inline-block;
-                width:15%;
-                float:right;
+                display: table-cell;
+                vertical-align: middle;
+                width:190px;
                 margin-top:22px;
 
                 a {
                     display:inline-block;
                 }
 
-                .favourite-btn {
+                .score-btn {
                     padding: 8px 15px !important;
                     border: 3px solid transparent !important;
                     background:@primary1;
                     border-radius: 0;
-
-                    i {
-                        color:@light-grey;
-                    }
+                    color:@white;
 
                     &:hover{
-                        background:@primary1-light;
-                        i {
-                            color:@primary2;
-                        }
+                        background:@primary1;
                     }
 
                 }
 
-                .share-btn {
+                .like-btn {
                     padding: 8px 15px !important;
                     border: 3px solid transparent !important;
                     background:@primary1;
@@ -145,7 +164,7 @@
                     }
                 }
 
-                .expand-btn {
+                .dislike-btn {
                     padding: 8px 15px !important;
                     border: 3px solid transparent !important;
                     background:@primary1;
@@ -184,5 +203,38 @@
             margin:4px 0 0 0;
         }
 
+    }
+}
+
+
+@media(max-width: 1800px) {
+    .headlines {
+        .news-feed {
+        
+            .news-item {
+                .item-img {
+                    width:12%;
+                }
+                .item-content {
+                    width:85%;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 1600px) {
+    .headlines {
+        .news-feed {
+        
+            .news-item {
+                .item-img {
+                    width:15%;
+                }
+                .item-content {
+                    width:80%;
+                }
+            }
+        }
     }
 }
