@@ -1,5 +1,6 @@
-﻿@using rlnews.Models
-@model IEnumerable<Rss>
+﻿@using rlnews.DAL.Models
+@using rlnews.Models
+@model List<rlnews.DAL.Models.NewsItem>
 @{
     ViewBag.Title = "Home Page";
 }
@@ -36,23 +37,38 @@
             </div>
             <div class="news-feed">
                 @{
+
+                    if (Model.Count == 0)
+                    {
+                        <div>
+                            <p>No News Found.</p>
+                        </div>
+                    }
+
                     var count = 0;
-                    foreach (var item in Model.Take(15))
+                    foreach (var newsItem in Model.OrderByDescending(x =>x.PubDateTime))
                     {
                         count++;
                         <div class="news-item @(count == 1 ? "item-first" : "")">
                             <div class="item-img">
-                                <a href="@item.Link">
-                                    <img src="@item.Image" class="img-responsive img-rounded"/>
+                                <a href="@newsItem.SourceUrl">
+                                    <img src="@newsItem.ImageUrl" class="img-responsive img-rounded"/>
                                 </a>
                             </div>
                             <div class="item-content">
-                                <a href="@item.Link">
-                                    <h3 class="item-link">@item.Title</h3></a>
-                                <p>@item.Description</p>
+                                <a href="@newsItem.SourceUrl">
+                                    <h3 class="item-link">@newsItem.Title</h3></a>
+                                @if (newsItem.Description.Length >= 150)
+                                {
+                                    <p>@newsItem.Description...</p>
+                                }
+                                else
+                                {
+                                    <p>@newsItem.Description</p>
+                                }
                                 <p class="meta">
-                                    <a href="#" class="source"><i class="fa fa-rss meta-icon"></i>BBC Sport</a> - @item.PubDate.AsDateTime().Day/@item.PubDate.AsDateTime().Month/@item.PubDate.AsDateTime().Year
-                                    <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (12)</a>
+                                    <a href="@newsItem.SourceUrl" class="source"><i class="fa fa-rss meta-icon"></i>@newsItem.SourceName</a> - @newsItem.PubDateTime.Day/@newsItem.PubDateTime.Month/@newsItem.PubDateTime.Year
+                                    <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@newsItem.Comments)</a>
                                     <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
                                     <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
                                 </p>
@@ -60,7 +76,7 @@
                             <div class="item-options">
                                 <div class="pull-right">
                                     <a href="#" class="like-btn"><i class="fa fa-arrow-up"></i></a>
-                                    <a href="#" class="score-btn">100</a>
+                                    <a href="#" class="score-btn">@newsItem.Likes</a>
                                     <a href="#" class="dislike-btn"><i class="fa fa-arrow-down"></i></a>
                                 </div>
                             </div>

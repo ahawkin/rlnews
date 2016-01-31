@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rlnews", "rlnews\rlnews.csproj", "{17BA29EA-2462-4B4A-B3E7-4C87ECBC6079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rlnews.website", "rlnews\rlnews.website.csproj", "{17BA29EA-2462-4B4A-B3E7-4C87ECBC6079}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rlnews.DAL", "rlnews.DAL\rlnews.DAL.csproj", "{2AEE0B66-428E-4AC0-AC4C-6180730CF852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rlnews.importer", "rlnews.importer\rlnews.importer.csproj", "{C47EF71D-84B3-4090-ACCB-7CEF5FB15341}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{17BA29EA-2462-4B4A-B3E7-4C87ECBC6079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17BA29EA-2462-4B4A-B3E7-4C87ECBC6079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17BA29EA-2462-4B4A-B3E7-4C87ECBC6079}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AEE0B66-428E-4AC0-AC4C-6180730CF852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AEE0B66-428E-4AC0-AC4C-6180730CF852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AEE0B66-428E-4AC0-AC4C-6180730CF852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AEE0B66-428E-4AC0-AC4C-6180730CF852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47EF71D-84B3-4090-ACCB-7CEF5FB15341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47EF71D-84B3-4090-ACCB-7CEF5FB15341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47EF71D-84B3-4090-ACCB-7CEF5FB15341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47EF71D-84B3-4090-ACCB-7CEF5FB15341}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

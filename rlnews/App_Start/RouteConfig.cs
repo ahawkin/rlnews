@@ -32,6 +32,12 @@ namespace rlnews
             );
 
             routes.MapRoute(
+                 "FetchFeedsRoute",
+                 "news/fetchfeeds",
+                 new { controller = "FetchRssFeeds", action = "FetchFeeds" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }
