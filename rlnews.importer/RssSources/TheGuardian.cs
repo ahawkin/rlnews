@@ -116,12 +116,6 @@ namespace rlnews.importer.RssSources
             return false;
         }
 
-        public static string ScrubHtml(string value)
-        {
-            var step1 = Regex.Replace(value, @"<[^>]+>|•|&nbsp;", "").Trim();
-            return step1;
-        }
-
         /// <summary>
         /// Inserts BBC News rss feed data into the database
         /// </summary>

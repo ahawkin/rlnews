@@ -9,15 +9,15 @@
         <div class="rl-header">
             <div class="sm-container">
                 <h1>News Headlines</h1>
-                <p>for the Rugby Super League and the Championship</p>
+                <p>for the Rugby Super League, Championship and more</p>
             </div>
         </div>
         <div class="feed-options">
             <div class="sm-container">
                 <a class="active-option">All News</a>
-                <a>Super League</a>
-                <a>Championship</a>
-                <a>Challenge Cup</a>
+                <a>Trending <i class="fa fa-fire"></i></a>
+                <a>Most Popular</a>
+                <a>Most Discussed</a>
                 <div class="option-divider"> | </div>
                 <a>Create Feed <i class="fa fa-plus"></i></a>
                 <select>
@@ -46,7 +46,7 @@
                     }
 
                     var count = 0;
-                    foreach (var newsItem in Model.OrderByDescending(x =>x.PubDateTime))
+                    foreach (var newsItem in Model.OrderByDescending(x => x.PubDateTime))
                     {
                         count++;
                         <div class="news-item @(count == 1 ? "item-first" : "")">
@@ -75,9 +75,9 @@
                             </div>
                             <div class="item-options">
                                 <div class="pull-right">
-                                    <a href="#" class="like-btn"><i class="fa fa-arrow-up"></i></a>
-                                    <a href="#" class="score-btn">@newsItem.Likes</a>
-                                    <a href="#" class="dislike-btn"><i class="fa fa-arrow-down"></i></a>
+                                    <button class="like-btn" type="button" value="@newsItem.NewsId"><i class="fa fa-arrow-up"></i></button>
+                                    <a id="scoreid-@newsItem.NewsId" href="#" class="score-btn">@(newsItem.Likes - newsItem.Dislikes)</a>
+                                    <button class="dislike-btn" type="button" value="@newsItem.NewsId"><i class="fa fa-arrow-down"></i></button>
                                 </div>
                             </div>
                         </div>
