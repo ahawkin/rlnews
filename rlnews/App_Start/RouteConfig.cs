@@ -26,6 +26,12 @@ namespace rlnews
             );
 
             routes.MapRoute(
+                 "NewsRoute",
+                 "news",
+                 new { controller = "News", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }

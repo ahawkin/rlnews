@@ -121,6 +121,8 @@ namespace rlnews.importer.RssSources
         /// </summary>
         private void InsertRssData()
         {
+            Distance distance = new Distance();
+
             try
             {
                 // create database context
@@ -130,6 +132,21 @@ namespace rlnews.importer.RssSources
                 {
                     if (IsPostNew(newsItem.PubDateTime))
                     {
+
+                        string clusterType = null;
+                        int parentId = 0;
+
+                        parentId = distance.CheckRelated(newsItem.Title);
+
+                        if (parentId > 0)
+                        {
+                            clusterType = "Child";
+                        }
+                        else
+                        {
+                            clusterType = "Parent";
+                        }
+
                         //Increment import counter
                         _importCount++;
 
@@ -146,7 +163,9 @@ namespace rlnews.importer.RssSources
                             Dislikes = 0,
                             Comments = 0,
                             Favourites = 0,
-                            Views = 0
+                            Views = 0,
+                            ClusterType = clusterType,
+                            ParentNewsId = parentId
                         };
 
                         dbContext.NewsItems.Add(dbObj);

@@ -1,33 +1,51 @@
-﻿<div class="col-right">
+﻿@model rlnews.Models.NewsViewModel
+<div class="col-right">
     <div class="side-container">
         <div class="top-headlines">
             <h3>Top Headlines</h3>
-            @for (var i = 1; i < 6; i++)
-            {
-                <div class="top-item clearfix">
-                    <div class="col-md-2">
-                        <div class="item-num">
-                            <span>@i</span>
+            @{
+                if (Model.SidebarList.Count == 0)
+                {
+                    <div>
+                        <p>No News Found.</p>
+                    </div>
+                }
+
+                var sidebarCount = 0;
+                foreach (var newsItem in Model.SidebarList.Take(5))
+                {
+                    sidebarCount++;
+                    <div class="top-item clearfix">
+                        <div class="col-md-2">
+                            <div class="item-num">
+                                <span>@sidebarCount</span>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="item-content">
+                                <a class="view-tracker" id="@newsItem.NewsId" href="@newsItem.SourceUrl">
+                                    <h4 class="item-link">                                       
+                                        @if (@newsItem.Title.Length > 55)
+                                        {
+                                            @newsItem.Title.Substring(0, Math.Min(55, newsItem.Title.Length))
+                                            <span>...</span>
+                                        }
+                                        else
+                                        {
+                                            @newsItem.Title
+                                        }
+                                    </h4>
+                                </a>
+                                <p><a href="@newsItem.SourceUrl" class="source">@newsItem.SourceName</a> - @newsItem.PubDateTime.Day/@newsItem.PubDateTime.Month/@newsItem.PubDateTime.Year</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-10">
-                        <div class="item-content">
-                            <a href="http://www.bbc.co.uk/sport/0/rugby-league/33426644">
-                                <h4 class="item-link">St Helens v Huddersfield (Fri)</h4>
-                            </a>
-                            <p><a href="#" class="source">BBC Sport</a> - 2 hours ago</p>
-                        </div>
-                    </div>
-                </div>
+                }
             }
-        </div>
-        <div class="rl-advert">
-            <h3>Become a premium RLNews member today!</h3>
-            <a href="" class="advert-btn"><i class="fa fa-star"></i>Get Premium</a>
         </div>
         <div class="upcoming-fixtures">
             <h3>Upcoming Fixtures <a href="#">View all <i class="fa fa-angle-double-right"></i></a></h3>
-            @for (var i = 0; i < 3; i++)
+            @for (var i = 0; i < 5; i++)
             {
                 <div class="fixture clearfix">
                     <div class="col-md-2">
@@ -42,6 +60,7 @@
                     </div>
                 </div>
             }
+
         </div>
     </div>
 </div>

@@ -1,13 +1,42 @@
-﻿//RlNews JS - Main
+﻿/*
+______ _      _   _  _____ _    _ _____ 
+| ___ \ |    | \ | ||  ___| |  | /  ___|
+| |_/ / |    |  \| || |__ | |  | \ `--. 
+|    /| |    | . ` ||  __|| |/\| |`--. \
+| |\ \| |____| |\  || |___\  /\  /\__/ /
+\_| \_\_____/\_| \_/\____/ \/  \/\____/ 
+
+Rlnews.co.uk
+
+*/
+
+$(function () {
+    var url = window.location.pathname;
+    var split = url.substring(url.lastIndexOf('/') + 1);
+
+    switch (split) {
+        case "all":
+            $('.sm-container a#allnews').addClass('active-option');
+            $('.sm-container a#popular').removeClass('active-option');
+            break;
+        case "popular":
+            $('.sm-container a#popular').addClass('active-option');
+            $('.sm-container a#allnews').removeClass('active-option');
+            break;
+    }  
+});
 
 //Like button AJAX
 $(".like-btn").click(function (e) {
+
     e.preventDefault();
 
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[0];
     var newsid = $(this).val();
 
     $.ajax({
-        url: "news/LikeNewsItem",
+        url: baseUrl + "/news/LikeNewsItem",
         type: "POST", 
         cache: false, 
         data: { 'newsid': newsid },
@@ -26,10 +55,12 @@ $(".like-btn").click(function (e) {
 $(".dislike-btn").click(function (e) {
     e.preventDefault();
 
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[0];
     var newsid = $(this).val();
 
     $.ajax({
-        url: "news/DislikeNewsItem",
+        url: baseUrl + "news/DislikeNewsItem",
         type: "POST",
         cache: false,
         data: { 'newsid': newsid },
@@ -42,4 +73,31 @@ $(".dislike-btn").click(function (e) {
             alert('error');
         }
     });
+});
+
+//View counter AJAX
+$(".view-tracker").click(function () {
+
+    var newsid = $(this).attr('id');
+
+    $.ajax({
+        url: "news/AddViewToNewsItem",
+        type: "POST",
+        cache: false,
+        data: { 'newsid': newsid }
+    });
+});
+
+
+
+$(".view-related").click(function (e) {
+    e.preventDefault();
+    $(this).closest('div').find(".related-articles").slideToggle(200);
+
+    if (this.text === "View Related Articles") {
+        $(this).text("Hide Related Articles");
+    } else {
+        $(this).text("View Related Articles");
+    }
+
 });

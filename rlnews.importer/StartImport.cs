@@ -47,6 +47,19 @@ namespace rlnews.importer
         }
 
         /// <summary>
+        /// Test method for distance - Should be done as unit test in future
+        /// </summary>
+        private void TestDistance()
+        {
+            Distance distance = new Distance();
+
+            string test1 = "";
+            string test2 = "";
+
+            Console.WriteLine(distance.GetMatchScore(test1, test2));
+        }
+
+        /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]

@@ -1,0 +1,73 @@
+﻿@model rlnews.Models.NewsViewModel
+<div class="news-feed">
+    @{
+
+        if (Model.NewsFeedList.Count == 0)
+        {
+            <div>
+                <p>No News Found.</p>
+            </div>
+        }
+
+        var count = 0;
+        foreach (var parentNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Parent"))
+        {
+            var childCount = Model.NewsFeedList.Count(x => x.ClusterType == "Child" && x.ParentNewsId == parentNewsItem.NewsId);
+            count++;
+
+            <div class="news-item @(count == 1 ? "item-first" : "")">
+                <div class="item-img">
+                    <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl">
+                        <img src="@parentNewsItem.ImageUrl" class="img-responsive img-rounded"/>
+                    </a>
+                </div>
+                <div class="item-content">
+                    <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl"><h3 class="item-link">@parentNewsItem.Title</h3></a>
+                    @if (parentNewsItem.Description.Length >= 125)
+                    {
+                        <p>@parentNewsItem.Description...<a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl"> Read More</a></p>
+                    }
+                    else
+                    {
+                        <p>@parentNewsItem.Description</p>
+                    }
+                    <p class="meta">
+                        <a id="@parentNewsItem.NewsId" target="_blank" href="@parentNewsItem.SourceUrl" class="source view-tracker"><i class="fa fa-rss meta-icon"></i>@parentNewsItem.SourceName</a> - @parentNewsItem.PubDateTime.Day/@parentNewsItem.PubDateTime.Month/@parentNewsItem.PubDateTime.Year
+                        <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.Comments)</a>
+                        <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
+                        <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
+                        @if (childCount > 0)
+                        {
+                            <span><i class="fa fa-eye meta-icon"></i></span><a class="view-related" href="#">View Related Articles</a>
+                        }
+                    </p>
+                    @if (childCount > 0)
+                    {
+                        <div class="related-articles">
+                            <h4>Related News Articles</h4>
+
+                            @foreach (var childNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Child" && x.ParentNewsId == parentNewsItem.NewsId))
+                            {
+
+                                <a class="view-tracker" target="_blank" id="@childNewsItem.NewsId" href="@childNewsItem.SourceUrl">@childNewsItem.Title</a>
+                                <span class="child-meta">
+                                    @childNewsItem.SourceName -
+                                    @childNewsItem.PubDateTime.Day<span>/</span>@childNewsItem.PubDateTime.Month<span>/</span>@childNewsItem.PubDateTime.Year
+                                </span>
+                                <br/>
+                            }
+
+                        </div>
+                    }                  
+                </div>
+                <div class="item-options">
+                    <div class="pull-right">
+                        <button class="like-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-arrow-up"></i></button>
+                        <a id="scoreid-@parentNewsItem.NewsId" href="#" class="score-btn">@(parentNewsItem.Likes - parentNewsItem.Dislikes)</a>
+                        <button class="dislike-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-arrow-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -50,11 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Distance.cs" />
     <Compile Include="NewsItem.cs" />
     <Compile Include="RssSources\TheGuardian.cs" />
     <Compile Include="StartImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssSources\BbcNews.cs" />
+    <Compile Include="StopWords.cs" />
     <Compile Include="ValidateItem.cs" />
   </ItemGroup>
   <ItemGroup>

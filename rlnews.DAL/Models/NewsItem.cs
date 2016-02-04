@@ -8,6 +8,7 @@ namespace rlnews.DAL.Models
 {
     public class NewsItem
     {
+    
         [Key]
         public int NewsId { get; set; }
 
@@ -32,5 +33,9 @@ namespace rlnews.DAL.Models
         public int Favourites { get; set; }
 
         public int Views { get; set; }
+
+        public string ClusterType { get; set; }
+
+        public int ParentNewsId { get; set; }
     }
 }

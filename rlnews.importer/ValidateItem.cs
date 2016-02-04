@@ -14,7 +14,7 @@ namespace rlnews.importer
         /// <param name="input"></param>
         public string LimitLength(string input)
         {
-            string trimmedInput = input.Substring(0, Math.Min(200, input.Length));
+            string trimmedInput = input.Substring(0, Math.Min(150, input.Length));
             return trimmedInput;
         }
 

@@ -1,7 +1,4 @@
-﻿@using rlnews.DAL.Models
-@using rlnews.Models
-@model List<rlnews.DAL.Models.NewsItem>
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 <section class="headlines clearfix">
@@ -14,9 +11,9 @@
         </div>
         <div class="feed-options">
             <div class="sm-container">
-                <a class="active-option">All News</a>
+                @Html.ActionLink("All News", "all", "news", null, new { id = "allnews" })
                 <a>Trending <i class="fa fa-fire"></i></a>
-                <a>Most Popular</a>
+                @Html.ActionLink("Most Popular", "popular", "news", null , new { id= "popular" })
                 <a>Most Discussed</a>
                 <div class="option-divider"> | </div>
                 <a>Create Feed <i class="fa fa-plus"></i></a>
@@ -35,55 +32,7 @@
                 <h2>All News - Latest</h2>
                 <p class="feed-update">Last Updated: 5 minutes ago</p>
             </div>
-            <div class="news-feed">
-                @{
-
-                    if (Model.Count == 0)
-                    {
-                        <div>
-                            <p>No News Found.</p>
-                        </div>
-                    }
-
-                    var count = 0;
-                    foreach (var newsItem in Model.OrderByDescending(x => x.PubDateTime))
-                    {
-                        count++;
-                        <div class="news-item @(count == 1 ? "item-first" : "")">
-                            <div class="item-img">
-                                <a href="@newsItem.SourceUrl">
-                                    <img src="@newsItem.ImageUrl" class="img-responsive img-rounded"/>
-                                </a>
-                            </div>
-                            <div class="item-content">
-                                <a href="@newsItem.SourceUrl">
-                                    <h3 class="item-link">@newsItem.Title</h3></a>
-                                @if (newsItem.Description.Length >= 150)
-                                {
-                                    <p>@newsItem.Description...</p>
-                                }
-                                else
-                                {
-                                    <p>@newsItem.Description</p>
-                                }
-                                <p class="meta">
-                                    <a href="@newsItem.SourceUrl" class="source"><i class="fa fa-rss meta-icon"></i>@newsItem.SourceName</a> - @newsItem.PubDateTime.Day/@newsItem.PubDateTime.Month/@newsItem.PubDateTime.Year
-                                    <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@newsItem.Comments)</a>
-                                    <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
-                                    <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
-                                </p>
-                            </div>
-                            <div class="item-options">
-                                <div class="pull-right">
-                                    <button class="like-btn" type="button" value="@newsItem.NewsId"><i class="fa fa-arrow-up"></i></button>
-                                    <a id="scoreid-@newsItem.NewsId" href="#" class="score-btn">@(newsItem.Likes - newsItem.Dislikes)</a>
-                                    <button class="dislike-btn" type="button" value="@newsItem.NewsId"><i class="fa fa-arrow-down"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                }
-            </div>
+            @Html.Partial("NewsFeed")
         </div>
         <footer class="rl-footer clearfix">
             <div class="sm-container">

@@ -67,7 +67,6 @@
             &:hover {
                 border-top:1px solid @border2;
                 border-bottom:1px solid @border2;
-                cursor:pointer;
             }
 
             .item-img {
@@ -122,6 +121,23 @@
                             color:@primary2-dark;
                             text-decoration:underline;
                         }
+
+                        &:focus {
+                            color:@primary2-dark;
+                            text-decoration:none;
+                        }
+                    }
+                }
+
+                .related-articles {
+                    margin-top:15px;
+                    a {
+                        color: @primary1;
+                    }
+                    .child-meta {
+                        display:inline-block;
+                        margin-left:5px;
+                        font-size:12px;
                     }
                 }
             }
