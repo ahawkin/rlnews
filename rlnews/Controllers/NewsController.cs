@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using rlnews.DAL.Models;
 using rlnews.Models;
+using PagedList;
 
 namespace rlnews.Controllers
 {
@@ -12,23 +13,19 @@ namespace rlnews.Controllers
         //Index Page - News
         public ActionResult Index()
         {
-            var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.PubDateTime).ToList();
-
-            var newsModel = new NewsViewModel
-            {
-                NewsFeedList = dbObj,
-                SidebarList = SidebarHeadlines()
-            };
-
-            return View("~/Views/News/Index.cshtml", newsModel);
+            return RedirectToAction("all");
         }
 
         //Get All News
-        public ActionResult All()
+        public ActionResult All(int? page)
         {
+            ViewData["FeedTitle"] = "All News";
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.PubDateTime).ToList();
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.PubDateTime).ToPagedList(pageNumber, pageSize);
 
             var newsModel = new NewsViewModel
             {
@@ -40,10 +37,16 @@ namespace rlnews.Controllers
         }
 
         //Get Most Popular News
-        public ActionResult Popular()
+        public ActionResult Popular(int? page)
         {
+
+            ViewData["FeedTitle"] = "Popular News";
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Views).ToList();
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize);
 
             var newsModel = new NewsViewModel
             {
@@ -54,15 +57,41 @@ namespace rlnews.Controllers
             return View("~/Views/News/Index.cshtml", newsModel);
         }
 
+        //Get Most Popular News
+        public ActionResult Trending(int? page)
+        {
+
+            ViewData["FeedTitle"] = "Trending News";
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+
+            DateTime nowMinus48 = DateTime.Now;
+            DateTime now = DateTime.Now;
+            nowMinus48 = nowMinus48.AddHours(-48);
+
+            var dbContext = new rlnews.DAL.RlnewsDb();
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Likes).Where(x => x.PubDateTime > nowMinus48 && x.PubDateTime <= now).ToPagedList(pageNumber, pageSize);
+
+            var newsModel = new NewsViewModel
+            {
+                NewsFeedList = dbObj,
+                SidebarList = SidebarHeadlines()
+            };
+
+            return View("~/Views/News/Index.cshtml", newsModel);
+        }
+
+        //Get Top News for the sidebar
         public List<NewsItem> SidebarHeadlines()
         {
-            DateTime nowMinus24 = DateTime.Now;
+            DateTime nowMinus48 = DateTime.Now;
             DateTime now = DateTime.Now;
-            nowMinus24 = nowMinus24.AddHours(-48);
+            nowMinus48 = nowMinus48.AddHours(-48);
 
             var dbContext = new rlnews.DAL.RlnewsDb();
 
-            var topHeadlines = dbContext.NewsItems.OrderByDescending(x => x.Views).Where(x => x.PubDateTime > nowMinus24 && x.PubDateTime <= now).ToList();
+            var topHeadlines = dbContext.NewsItems.OrderByDescending(x => x.Views).Where(x => x.PubDateTime > nowMinus48 && x.PubDateTime <= now).ToList();
             
             return topHeadlines;
         }

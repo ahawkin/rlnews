@@ -78,18 +78,24 @@ $(".dislike-btn").click(function (e) {
 //View counter AJAX
 $(".view-tracker").click(function () {
 
+    var getUrl = window.location;
+    var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[0];
     var newsid = $(this).attr('id');
 
     $.ajax({
-        url: "news/AddViewToNewsItem",
+        url: baseUrl + "news/AddViewToNewsItem",
         type: "POST",
         cache: false,
         data: { 'newsid': newsid }
     });
 });
 
+//Hide related news on page load
+$(document).ready(function () {
+    $('.related-articles').hide();
+});
 
-
+//Click to show and hide related news
 $(".view-related").click(function (e) {
     e.preventDefault();
     $(this).closest('div').find(".related-articles").slideToggle(200);

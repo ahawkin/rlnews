@@ -12,7 +12,9 @@
         <div class="feed-options">
             <div class="sm-container">
                 @Html.ActionLink("All News", "all", "news", null, new { id = "allnews" })
-                <a>Trending <i class="fa fa-fire"></i></a>
+                <a href="@Url.Action("trending", "news")">
+                    Trending <i class="fa fa-fire"></i>
+                </a>
                 @Html.ActionLink("Most Popular", "popular", "news", null , new { id= "popular" })
                 <a>Most Discussed</a>
                 <div class="option-divider"> | </div>
@@ -29,7 +31,7 @@
         </div>
         <div class="sm-container">
             <div class="titlebar">
-                <h2>All News - Latest</h2>
+                <h2>@ViewData["FeedTitle"]</h2>
                 <p class="feed-update">Last Updated: 5 minutes ago</p>
             </div>
             @Html.Partial("NewsFeed")

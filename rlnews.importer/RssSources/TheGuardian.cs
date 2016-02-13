@@ -78,7 +78,7 @@ namespace rlnews.importer.RssSources
                              SourceName = "The Guardian",
                              ImageUrl = feed.Elements(media + "content")
                                          .Where(i => i.Attribute("width").Value == "140" && i.Attribute("height").Value == "84")
-                                         .Select(i => i.Attribute("url").Value).SingleOrDefault(),
+                                         .Select(i => i.Attribute("url").Value).FirstOrDefault(),
                              PubDateTime = DateTime.Parse(pubDateTime.Value)
                          };
 
