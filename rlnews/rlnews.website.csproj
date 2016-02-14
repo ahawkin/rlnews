@@ -201,7 +201,6 @@
     <Content Include="Assets\js\respond.min.js" />
     <None Include="Assets\js\_references.js" />
     <Content Include="Assets\src\js\main.js" />
-    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />

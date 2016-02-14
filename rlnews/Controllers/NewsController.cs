@@ -10,16 +10,16 @@ namespace rlnews.Controllers
 {
     public class NewsController : Controller
     {
-        //Index Page - News
+        //Index Page - Default to all news
         public ActionResult Index()
         {
-            return RedirectToAction("all");
+            return RedirectToAction("latest");
         }
 
         //Get All News
-        public ActionResult All(int? page)
+        public ActionResult Latest(int? page)
         {
-            ViewData["FeedTitle"] = "All News";
+            ViewData["FeedTitle"] = "Latest News";
 
             int pageSize = 15;
             int pageNumber = (page ?? 1);
@@ -57,7 +57,7 @@ namespace rlnews.Controllers
             return View("~/Views/News/Index.cshtml", newsModel);
         }
 
-        //Get Most Popular News
+        //Get Trending News
         public ActionResult Trending(int? page)
         {
 
@@ -66,12 +66,42 @@ namespace rlnews.Controllers
             int pageSize = 15;
             int pageNumber = (page ?? 1);
 
-            DateTime nowMinus48 = DateTime.Now;
+            DateTime dateTime = DateTime.Now;
             DateTime now = DateTime.Now;
-            nowMinus48 = nowMinus48.AddHours(-48);
+            dateTime = dateTime.AddHours(-24);
 
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Likes).Where(x => x.PubDateTime > nowMinus48 && x.PubDateTime <= now).ToPagedList(pageNumber, pageSize);
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Likes)
+                        .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                        .Where(x => x.Likes > 0)
+                        .ToPagedList(pageNumber, pageSize);
+
+            var newsModel = new NewsViewModel
+            {
+                NewsFeedList = dbObj,
+                SidebarList = SidebarHeadlines()
+            };
+
+            return View("~/Views/News/Index.cshtml", newsModel);
+        }
+
+        //Get Most Discussed News
+        public ActionResult Discussed(int? page)
+        {
+            ViewData["FeedTitle"] = "Most Discussed News";
+
+            int pageSize = 15;
+            int pageNumber = (page ?? 1);
+
+            DateTime dateTime = DateTime.Now;
+            DateTime now = DateTime.Now;
+            dateTime = dateTime.AddHours(-24);
+
+            var dbContext = new rlnews.DAL.RlnewsDb();
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Comments)
+                        .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                        .Where(x => x.Comments > 0)
+                        .ToPagedList(pageNumber, pageSize);
 
             var newsModel = new NewsViewModel
             {

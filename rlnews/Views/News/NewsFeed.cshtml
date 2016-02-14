@@ -19,7 +19,7 @@
             <div class="news-item @(count == 1 ? "item-first" : "")">
                 <div class="item-img">
                     <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl">
-                        <img src="@parentNewsItem.ImageUrl" class="img-responsive img-rounded"/>
+                        <img src="@(parentNewsItem.ImageUrl ?? "../Assets/img/no-image.png")" class="img-responsive img-rounded"/>
                     </a>
                 </div>
                 <div class="item-content">
@@ -71,13 +71,14 @@
             </div>
         }
 
-        <br/>
-
-        <span>Page: </span> @(Model.NewsFeedList.PageCount < Model.NewsFeedList.PageNumber ? 0 : Model.NewsFeedList.PageNumber) <span>of</span> @Model.NewsFeedList.PageCount
-
-        if (Request.Url != null)
-        {
-            @Html.PagedListPager(Model.NewsFeedList, page => Url.Action(Request.Url.Segments[Request.Url.Segments.Length - 1], new { page }))
-        }
+        <div class="news-paging">
+            <div class="page-count">
+                <span>Page: </span> @(Model.NewsFeedList.PageCount < Model.NewsFeedList.PageNumber ? 0 : Model.NewsFeedList.PageNumber) <span>of</span> @Model.NewsFeedList.PageCount
+            </div>
+            @if (Request.Url != null)
+            {
+                @Html.PagedListPager(Model.NewsFeedList, page => Url.Action(Request.Url.Segments[Request.Url.Segments.Length - 1], new {page}))
+            }
+        </div>
     }
 </div>

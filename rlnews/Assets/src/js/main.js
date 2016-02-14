@@ -10,18 +10,36 @@ Rlnews.co.uk
 
 */
 
+
+//Active class for news feed navigation
 $(function () {
     var url = window.location.pathname;
     var split = url.substring(url.lastIndexOf('/') + 1);
 
     switch (split) {
-        case "all":
-            $('.sm-container a#allnews').addClass('active-option');
+        case "latest":
+            $('.sm-container a#latest').addClass('active-option');
             $('.sm-container a#popular').removeClass('active-option');
+            $('.sm-container a#trending').removeClass('active-option');
+            $('.sm-container a#discussed').removeClass('active-option');
             break;
         case "popular":
             $('.sm-container a#popular').addClass('active-option');
-            $('.sm-container a#allnews').removeClass('active-option');
+            $('.sm-container a#Latest').removeClass('active-option');
+            $('.sm-container a#trending').removeClass('active-option');
+            $('.sm-container a#discussed').removeClass('active-option');
+            break;
+        case "trending":
+            $('.sm-container a#trending').addClass('active-option');
+            $('.sm-container a#Latest').removeClass('active-option');
+            $('.sm-container a#popular').removeClass('active-option');
+            $('.sm-container a#discussed').removeClass('active-option');
+            break;
+        case "discussed":
+            $('.sm-container a#discussed').addClass('active-option');
+            $('.sm-container a#Latest').removeClass('active-option');
+            $('.sm-container a#popular').removeClass('active-option');
+            $('.sm-container a#trending').removeClass('active-option');
             break;
     }  
 });

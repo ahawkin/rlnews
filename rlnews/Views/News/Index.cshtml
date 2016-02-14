@@ -11,28 +11,27 @@
         </div>
         <div class="feed-options">
             <div class="sm-container">
-                @Html.ActionLink("All News", "all", "news", null, new { id = "allnews" })
-                <a href="@Url.Action("trending", "news")">
+                @Html.ActionLink("Latest News", "latest", "news", null, new { id = "latest" })
+                <a id="trending" href="@Url.Action("trending", "news")">
                     Trending <i class="fa fa-fire"></i>
                 </a>
                 @Html.ActionLink("Most Popular", "popular", "news", null , new { id= "popular" })
-                <a>Most Discussed</a>
+                @Html.ActionLink("Most Discussed", "discussed", "news", null, new { id = "discussed" })
                 <div class="option-divider"> | </div>
                 <a>Create Feed <i class="fa fa-plus"></i></a>
-                <select>
-                    <option>Latest News</option>
+                <select class="@(ViewData["FeedTitle"].ToString() == "Latest News" ? "hide" : "")">
                     <option>Past 24h</option>
                     <option>Past Week</option>
                     <option>Past Month</option>
                     <option>Past Year</option>
+                    <option>All Time</option>
                 </select>
-                <label><i class="fa fa-filter"></i> Filter:</label>
+                <label class="@(ViewData["FeedTitle"].ToString() == "Latest News" ? "hide" : "")"><i class="fa fa-filter"></i> Filter:</label>
             </div>
         </div>
         <div class="sm-container">
             <div class="titlebar">
                 <h2>@ViewData["FeedTitle"]</h2>
-                <p class="feed-update">Last Updated: 5 minutes ago</p>
             </div>
             @Html.Partial("NewsFeed")
         </div>
