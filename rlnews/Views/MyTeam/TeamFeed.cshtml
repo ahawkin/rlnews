@@ -1,0 +1,62 @@
+﻿@model rlnews.Models.FeedViewModel
+@using PagedList.Mvc;
+<div class="news-feed">
+    @{
+
+        if (Model.NewsFeedList.Count == 0)
+        {
+            <div>
+                <p>No News Found.</p>
+            </div>
+        }
+
+        var count = 0;
+
+        foreach (var parentNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Parent"))
+        {
+            count++;
+
+            <div class="news-item @(count == 1 ? "item-first" : "")">
+                <div class="item-img">
+                    <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl">
+                        <img src="@(parentNewsItem.ImageUrl ?? "../Assets/img/no-image.png")" class="img-responsive img-rounded" />
+                    </a>
+                </div>
+                <div class="item-content">
+                    <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl"><h3 class="item-link">@parentNewsItem.Title</h3></a>
+                    @if (parentNewsItem.Description.Length >= 125)
+                    {
+                        <p>@parentNewsItem.Description...<a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl"> Read More</a></p>
+                    }
+                    else
+                    {
+                        <p>@parentNewsItem.Description</p>
+                    }
+                    <p class="meta">
+                        <a id="@parentNewsItem.NewsId" target="_blank" href="@parentNewsItem.SourceUrl" class="source view-tracker"><i class="fa fa-rss meta-icon"></i>@parentNewsItem.SourceName</a> - @parentNewsItem.PubDateTime.Day/@parentNewsItem.PubDateTime.Month/@parentNewsItem.PubDateTime.Year
+                        <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.Comments)</a>
+                        <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
+                        <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
+                    </p>                    
+                </div>
+                <div class="item-options">
+                    <div class="pull-right">
+                        <button class="like-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-thumbs-up"></i></button>
+                        <a id="scoreid-@parentNewsItem.NewsId" href="#" class="score-btn">@(parentNewsItem.Likes - parentNewsItem.Dislikes)</a>
+                        <button class="dislike-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-thumbs-down"></i></button>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="news-paging">
+            <div class="page-count">
+                <span>Page: </span> @(Model.NewsFeedList.PageCount < Model.NewsFeedList.PageNumber ? 0 : Model.NewsFeedList.PageNumber) <span>of</span> @Model.NewsFeedList.PageCount
+            </div>
+            @if (Request.Url != null)
+            {
+                @Html.PagedListPager(Model.NewsFeedList, page => Url.Action(Request.Url.Segments[Request.Url.Segments.Length - 1], new { page }))
+            }
+        </div>
+    }
+</div>

@@ -20,8 +20,8 @@ namespace rlnews
                         "~/Assets/js/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Assets/js/bootstrap.js",
-                      "~/Assets/js/respond.js"));
+                      "~/Assets/js/bootstrap.min.js",
+                      "~/Assets/js/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
                       "~/Assets/css/bootstrap.css",

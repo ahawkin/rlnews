@@ -16,15 +16,9 @@ namespace rlnews
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                 "AboutRoute",
-                 "about",
-                 new { controller = "Home", action = "About" }
-            );
-
-            routes.MapRoute(
-                 "ContactRoute",
-                 "contact",
-                 new { controller = "Home", action = "Contact" }
+                 "MyTeamRoute",
+                 "my-team",
+                 new { controller = "MyTeam", action = "Index" }
             );
 
             routes.MapRoute(

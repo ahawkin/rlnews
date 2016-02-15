@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Your Team";
+}
+<section class="headlines clearfix">
+    <div class="col-left">
+        <div class="rl-header" style="background-image: url(/Assets/img/cas.png)">
+            <div class="sm-container">
+                <h1>My Team Headlines</h1>
+                <p>Up to date team headlines for @ViewData["TeamName"]</p>
+            </div>
+        </div>
+        <div class="feed-options">
+            <div class="sm-container">
+                <a href="/news/latest" id="latest" class="active-option">Latest News</a>
+                <a id="trending" href="/news/trending">
+                    Trending <i class="fa fa-fire"></i>
+                </a>
+                <a href="/news/popular" id="popular">Most Popular</a>
+                <a href="/news/discussed" id="discussed">Most Discussed</a>
+                <div class="option-divider"> | </div>
+                <a>Create Feed <i class="fa fa-plus"></i></a>
+                <select class="hide">
+                    <option>Past 24h</option>
+                    <option>Past Week</option>
+                    <option>Past Month</option>
+                    <option>Past Year</option>
+                    <option>All Time</option>
+                </select>
+                <label class="hide"><i class="fa fa-filter"></i> Filter:</label>
+            </div>
+        </div>
+        <div class="sm-container">
+            <div class="titlebar">
+                <h2>@ViewData["TeamName"] - @ViewData["FeedTitle"]</h2>
+            </div>
+            @Html.Partial("TeamFeed")
+        </div>
+        <footer class="rl-footer clearfix">
+            <div class="sm-container">
+                <div class="col-md-4">
+                    <a href="home" class="footer-brand">RLNews <i class="fa fa-rss"></i></a>
+                </div>
+                <div class="col-md-4 footer-copy">
+                    <p>Copyright &copy; @DateTime.Now.Year - RLNews.co.uk</p>
+                </div>
+                <div class="col-md-4 social-links">
+                    <a><i class="fa fa-facebook"></i></a>
+                    <a><i class="fa fa-twitter"></i></a>
+                    <a><i class="fa fa-google-plus"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @Html.Partial("_SidebarPartial")
+</section>
+

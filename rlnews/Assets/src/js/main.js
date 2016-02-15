@@ -10,6 +10,23 @@ Rlnews.co.uk
 
 */
 
+//Active class for news feed navigation
+$(function () {
+    var url = window.location.pathname;
+    var split = url.split('/');
+    var action = split[1];
+
+    switch (action) {
+        case "news":
+            $('.nav a#news').addClass('nav-active');
+            $('.nav a#myteam').removeClass('nav-active');
+            break;
+        case "my-team":
+            $('.nav a#myteam').addClass('nav-active');
+            $('.nav a#news').removeClass('nav-active');
+            break;
+    }
+});
 
 //Active class for news feed navigation
 $(function () {
@@ -110,18 +127,18 @@ $(".view-tracker").click(function () {
 
 //Hide related news on page load
 $(document).ready(function () {
-    $('.related-articles').hide();
-});
+    $(".related-articles").hide();
 
-//Click to show and hide related news
-$(".view-related").click(function (e) {
-    e.preventDefault();
-    $(this).closest('div').find(".related-articles").slideToggle(200);
+    //Click to show and hide related news
+    $(".view-related").click(function (e) {
+        e.preventDefault();
+        $(this).closest("div").find(".related-articles").fadeToggle(200);
 
-    if (this.text === "View Related Articles") {
-        $(this).text("Hide Related Articles");
-    } else {
-        $(this).text("View Related Articles");
-    }
+        if (this.text === "View Related Articles") {
+            $(this).text("Hide Related Articles");
+        } else {
+            $(this).text("View Related Articles");
+        }
 
+    });
 });

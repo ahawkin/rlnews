@@ -27,7 +27,7 @@ namespace rlnews.Controllers
             var dbContext = new rlnews.DAL.RlnewsDb();
             var dbObj = dbContext.NewsItems.OrderByDescending(x => x.PubDateTime).ToPagedList(pageNumber, pageSize);
 
-            var newsModel = new NewsViewModel
+            var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
                 SidebarList = SidebarHeadlines()
@@ -48,7 +48,7 @@ namespace rlnews.Controllers
             var dbContext = new rlnews.DAL.RlnewsDb();
             var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize);
 
-            var newsModel = new NewsViewModel
+            var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
                 SidebarList = SidebarHeadlines()
@@ -76,7 +76,7 @@ namespace rlnews.Controllers
                         .Where(x => x.Likes > 0)
                         .ToPagedList(pageNumber, pageSize);
 
-            var newsModel = new NewsViewModel
+            var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
                 SidebarList = SidebarHeadlines()
@@ -103,7 +103,7 @@ namespace rlnews.Controllers
                         .Where(x => x.Comments > 0)
                         .ToPagedList(pageNumber, pageSize);
 
-            var newsModel = new NewsViewModel
+            var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
                 SidebarList = SidebarHeadlines()
@@ -112,20 +112,19 @@ namespace rlnews.Controllers
             return View("~/Views/News/Index.cshtml", newsModel);
         }
 
-        //Get Top News for the sidebar
         public List<NewsItem> SidebarHeadlines()
         {
-            DateTime nowMinus48 = DateTime.Now;
+            DateTime nowMinus24 = DateTime.Now;
             DateTime now = DateTime.Now;
-            nowMinus48 = nowMinus48.AddHours(-48);
+            nowMinus24 = nowMinus24.AddHours(-48);
 
             var dbContext = new rlnews.DAL.RlnewsDb();
 
-            var topHeadlines = dbContext.NewsItems.OrderByDescending(x => x.Views).Where(x => x.PubDateTime > nowMinus48 && x.PubDateTime <= now).ToList();
+            var topHeadlines = dbContext.NewsItems.OrderByDescending(x => x.Views).Where(x => x.PubDateTime > nowMinus24 && x.PubDateTime <= now).ToList();
             
             return topHeadlines;
         }
-            
+
         [HttpPost]
         public ActionResult LikeNewsItem(string newsid)
         {
