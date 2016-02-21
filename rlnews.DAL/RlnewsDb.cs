@@ -26,6 +26,7 @@ namespace rlnews.DAL
         }
 
         public DbSet<NewsItem> NewsItems { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

@@ -181,7 +181,7 @@ namespace rlnews.importer.RssSources
                 }
                 else
                 {
-                    _importMessage = "Sucessfully imported '" + _importCount + "' news items from The Guardian.";
+                    _importMessage = "Successfully imported '" + _importCount + "' news items from The Guardian.";
                 }
             }
             catch (Exception ex)

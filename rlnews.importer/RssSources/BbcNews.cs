@@ -183,7 +183,7 @@ namespace rlnews.importer.RssSources
                 }
                 else
                 {
-                    _importMessage = "Sucessfully imported '" + _importCount + "' news items from BBC News.";
+                    _importMessage = "Successfully imported '" + _importCount + "' news items from BBC News.";
                 }
             }
             catch (Exception ex)

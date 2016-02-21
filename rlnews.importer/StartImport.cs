@@ -13,11 +13,13 @@ namespace rlnews.importer
 
         private void ImportAllSources()
         {
+            Console.WriteLine("RLNews import starting...");
+            Console.WriteLine(" ");
             ImportBbcNews();
             ImportTheGuardian();
-            Console.WriteLine("===========================================");
+            Console.WriteLine("==========================================");
             Console.WriteLine("Import complete - Total items imported: " + _totalImported);
-            Console.WriteLine("===========================================");
+            Console.WriteLine("==========================================");
         }
 
         /// <summary>
