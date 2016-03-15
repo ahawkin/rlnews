@@ -70,15 +70,17 @@ namespace rlnews.importer.RssSources
                          where sourceUrl != null
                          let pubDateTime = feed.Element("pubDate")
                          where pubDateTime != null
+                         let imageUrl = feed.Elements(media + "content")
+                                         .Where(i => i.Attribute("width").Value == "140")
+                                         .Select(i => i.Attribute("url").Value).FirstOrDefault()
+                         where imageUrl != null
                          select new NewsItem()
                          {
                              Title = _validate.LimitLength(title.Value),
                              Description = _validate.LimitLength(description.Value),
                              SourceUrl = sourceUrl.Value,
                              SourceName = "The Guardian",
-                             ImageUrl = feed.Elements(media + "content")
-                                         .Where(i => i.Attribute("width").Value == "140" && i.Attribute("height").Value == "84")
-                                         .Select(i => i.Attribute("url").Value).FirstOrDefault(),
+                             ImageUrl = imageUrl,
                              PubDateTime = DateTime.Parse(pubDateTime.Value)
                          };
 

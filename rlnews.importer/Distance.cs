@@ -68,6 +68,9 @@ namespace rlnews.importer
             titleRss = StopWords.RemoveStopwords(titleRss);
             titleDb = StopWords.RemoveStopwords(titleDb);
 
+            //Console.WriteLine(titleRss);
+            //Console.WriteLine(titleDb);
+
             string[] titleRssSplit = titleRss.Split(' ');
             string[] titleDbSplit = titleDb.Split(' ');
 

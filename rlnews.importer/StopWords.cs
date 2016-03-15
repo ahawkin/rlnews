@@ -12,7 +12,7 @@ namespace rlnews.importer
         /// <summary>
         /// Words we want to remove.
         /// </summary>
-        private static Dictionary<string, bool> _stops = new Dictionary<string, bool>
+        private static readonly Dictionary<string, bool> Stops = new Dictionary<string, bool>
         {
             {"a", true},
             {"about", true},
@@ -340,11 +340,11 @@ namespace rlnews.importer
         /// <summary>
         /// Chars that separate words.
         /// </summary>
-        private static char[] _delimiters = new char[]
-        {
+        private static readonly char[] Delimiters = {
             ' ',
             ',',
             ';',
+            '’',
             '.'
         };
 
@@ -355,7 +355,7 @@ namespace rlnews.importer
         {
             // 1
             // Split parameter into words
-            var words = input.Split(_delimiters,
+            var words = input.Split(Delimiters,
                 StringSplitOptions.RemoveEmptyEntries);
             // 2
             // Allocate new dictionary to store found words
@@ -372,7 +372,7 @@ namespace rlnews.importer
                 string lowerWord = currentWord.ToLower();
                 // 6
                 // If this is a usable word, add it
-                if (!_stops.ContainsKey(lowerWord) &&
+                if (!Stops.ContainsKey(lowerWord) &&
                     !found.ContainsKey(lowerWord))
                 {
                     builder.Append(currentWord).Append(' ');

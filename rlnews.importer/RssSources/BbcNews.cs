@@ -80,7 +80,7 @@ namespace rlnews.importer.RssSources
                                 SourceName = "BBC Sport",
                                 ImageUrl = feed.Elements(media + "thumbnail")
                                     .Where(i => i.Attribute("width").Value == "144" && i.Attribute("height").Value == "81")
-                                    .Select(i => i.Attribute("url").Value).SingleOrDefault(),
+                                    .Select(i => i.Attribute("url").Value).FirstOrDefault(),
                                 PubDateTime = DateTime.Parse(pubDateTime.Value)
                             };
 

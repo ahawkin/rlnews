@@ -1,0 +1,12 @@
+﻿@model rlnews.DAL.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (Session["UserId"] != null)
+{
+    <h4>Hello @Session["Username"].ToString()</h4>
+}

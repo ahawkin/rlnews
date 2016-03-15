@@ -16,13 +16,13 @@ namespace rlnews.DAL
             //Database.SetInitializer<RlnewsDb>(CreateDatabaseIfNotExists<RlnewsDb>);
 
             //Can be used to drop and create the database if the model changes
-            Database.SetInitializer<RlnewsDb>(new DropCreateDatabaseIfModelChanges<RlnewsDb>());
+            //Database.SetInitializer<RlnewsDb>(new DropCreateDatabaseIfModelChanges<RlnewsDb>());
 
             //Can be used to drop and create the database every time the application is run
             //Database.SetInitializer<RlnewsDb>(new DropCreateDatabaseAlways<RlnewsDb>());
 
             //Manage database manually
-            //Database.SetInitializer<RlnewsDb>(null);
+            Database.SetInitializer<RlnewsDb>(null);
         }
 
         public DbSet<NewsItem> NewsItems { get; set; }
