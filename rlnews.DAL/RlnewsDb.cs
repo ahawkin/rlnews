@@ -5,11 +5,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using rlnews.DAL.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace rlnews.DAL
 {
-    public class RlnewsDb : IdentityDbContext<AppUser>
+    public class RlnewsDb : DbContext
     {
         public RlnewsDb() : base("rlnews")
         {
@@ -26,11 +25,8 @@ namespace rlnews.DAL
             Database.SetInitializer<RlnewsDb>(null);
         }
 
-        public static RlnewsDb Create()
-        {
-            return new RlnewsDb();
-        }
-
         public DbSet<NewsItem> NewsItems { get; set; }
+        public DbSet<User> Users { get; set; }
+
     }
 }
