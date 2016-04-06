@@ -20,7 +20,8 @@ namespace rlnews.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Compare("Password", ErrorMessage = "Please confirm your password.")]
+        [Display(Name="Confirm Password")]
+        [Compare("Password", ErrorMessage = "Passwords don't match.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
