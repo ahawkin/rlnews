@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using rlnews.DAL.Models;
-using rlnews.Models;
+using rlnews.ViewModels;
 using PagedList;
 
 namespace rlnews.Controllers
@@ -30,7 +30,8 @@ namespace rlnews.Controllers
             var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
-                SidebarList = SidebarHeadlines()
+                SidebarList = SidebarHeadlines(),
+                RelatedNewsList = RealtedNewsList()
             };
 
             return View("~/Views/News/Index.cshtml", newsModel);
@@ -51,7 +52,8 @@ namespace rlnews.Controllers
             var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
-                SidebarList = SidebarHeadlines()
+                SidebarList = SidebarHeadlines(),
+                RelatedNewsList = RealtedNewsList()
             };
 
             return View("~/Views/News/Index.cshtml", newsModel);
@@ -60,7 +62,6 @@ namespace rlnews.Controllers
         //Get Trending News
         public ActionResult Trending(int? page)
         {
-
             ViewData["FeedTitle"] = "Trending News";
 
             int pageSize = 15;
@@ -71,15 +72,16 @@ namespace rlnews.Controllers
             dateTime = dateTime.AddHours(-24);
 
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Likes)
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.LikeTotal)
                         .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
-                        .Where(x => x.Likes > 0)
+                        .Where(x => x.LikeTotal > 0)
                         .ToPagedList(pageNumber, pageSize);
 
             var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
-                SidebarList = SidebarHeadlines()
+                SidebarList = SidebarHeadlines(),
+                RelatedNewsList = RealtedNewsList()
             };
 
             return View("~/Views/News/Index.cshtml", newsModel);
@@ -98,15 +100,16 @@ namespace rlnews.Controllers
             dateTime = dateTime.AddHours(-24);
 
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Comments)
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.CommentTotal)
                         .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
-                        .Where(x => x.Comments > 0)
+                        .Where(x => x.CommentTotal > 0)
                         .ToPagedList(pageNumber, pageSize);
 
             var newsModel = new FeedViewModel
             {
                 NewsFeedList = dbObj,
-                SidebarList = SidebarHeadlines()
+                SidebarList = SidebarHeadlines(),
+                RelatedNewsList = RealtedNewsList()
             };
 
             return View("~/Views/News/Index.cshtml", newsModel);
@@ -125,36 +128,82 @@ namespace rlnews.Controllers
             return topHeadlines;
         }
 
-        [HttpPost]
-        public ActionResult LikeNewsItem(string newsid)
+        public List<RelatedNews> RealtedNewsList()
         {
-            //Update likes field for news items using passed news id 
             var dbContext = new rlnews.DAL.RlnewsDb();
+            var relatedNews = dbContext.RelatedNews.ToList();
 
-            var dbObj = dbContext.NewsItems.Find(Int32.Parse(newsid));
-
-            dbObj.Likes = dbObj.Likes + 1;
-
-            dbContext.SaveChanges();
-
-            //Return the new score for this news item
-            return Json(new { success = true, message = dbObj.Likes - dbObj.Dislikes }, JsonRequestBehavior.AllowGet);
+            return relatedNews;
         }
 
         [HttpPost]
-        public ActionResult DislikeNewsItem(string newsid)
+        public ActionResult LikeNewsItem(string newsid)
         {
-            //Update dislikes field for news items using passed news id 
-            var dbContext = new rlnews.DAL.RlnewsDb();
+            if (Session["UserId"] != null)
+            {
+                //Initalize dbContext
+                var dbContext = new rlnews.DAL.RlnewsDb();
 
-            var dbObj = dbContext.NewsItems.Find(Int32.Parse(newsid));
+                //Create newsitem object and add to like total
+                var dbNews = dbContext.NewsItems.Find(Int32.Parse(newsid));
 
-            dbObj.Dislikes = dbObj.Dislikes + 1;
+                dbNews.LikeTotal = dbNews.LikeTotal + 1;
 
-            dbContext.SaveChanges();
+                dbContext.NewsItems.Add(dbNews);
 
-            //Return the new score for this news item
-            return Json(new { success = true, message = dbObj.Likes - dbObj.Dislikes }, JsonRequestBehavior.AllowGet);
+                //Create a dislike activity object and insert it into the database
+                var dbActvity = new rlnews.DAL.Models.Activity
+                {
+                    NewsId = Int32.Parse(newsid),
+                    UserId = Int32.Parse(Session["UserId"].ToString()),
+                    ActivityType = "Like",
+                    ActivityDate = DateTime.Now,
+                    ActivityContent = Session["Username"] + " liked a news article"
+                };
+
+                dbContext.Activity.Add(dbActvity);
+                dbContext.SaveChanges();
+
+                //Return the new score for this news item
+                return Json(new { success = true, message = dbNews.LikeTotal - dbNews.DislikeTotal }, JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult DislikeNewsItem(string newsid, string userid)
+        {
+            if (Session["UserId"] != null)
+            {
+                //Initalize dbContext
+                var dbContext = new rlnews.DAL.RlnewsDb();
+
+                //Create newsitem object and add to dislike total
+                var dbNews = dbContext.NewsItems.Find(Int32.Parse(newsid));
+
+                dbNews.DislikeTotal = dbNews.DislikeTotal + 1;
+
+                dbContext.NewsItems.Add(dbNews);
+
+                //Create a dislike activity object and insert it into the database
+                var dbActvity = new rlnews.DAL.Models.Activity
+                {
+                    NewsId = Int32.Parse(newsid),
+                    UserId = Int32.Parse(Session["UserId"].ToString()),
+                    ActivityType = "Dislike",
+                    ActivityDate = DateTime.Now,
+                    ActivityContent = Session["Username"] + " disliked a news article"
+                };
+
+                dbContext.Activity.Add(dbActvity);
+                dbContext.SaveChanges();
+
+                //Return the new score for this news item
+                return Json(new { success = true, message = dbNews.LikeTotal - dbNews.DislikeTotal }, JsonRequestBehavior.AllowGet);
+            }
+
+            return null;
         }
 
         public void AddViewToNewsItem(string newsid)

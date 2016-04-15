@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using PagedList;
 using rlnews.DAL.Models;
-using rlnews.Models;
+using rlnews.ViewModels;
 
 namespace rlnews.Controllers
 {

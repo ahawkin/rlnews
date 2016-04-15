@@ -152,7 +152,7 @@ namespace rlnews.importer.RssSources
                         //Increment import counter
                         _importCount++;
 
-                        //create object to add to database
+                        //create  news item object to add to database
                         var dbObj = new rlnews.DAL.Models.NewsItem
                         {
                             Title = _validate.RemoveHtml(newsItem.Title),
@@ -161,14 +161,22 @@ namespace rlnews.importer.RssSources
                             SourceUrl = newsItem.SourceUrl,
                             ImageUrl = newsItem.ImageUrl,
                             PubDateTime = newsItem.PubDateTime,
-                            Likes = 0,
-                            Dislikes = 0,
-                            Comments = 0,
-                            Favourites = 0,
                             Views = 0,
-                            ClusterType = clusterType,
-                            ParentNewsId = parentId
+                            ClusterType = clusterType
                         };
+
+                        if (parentId > 0)
+                        {
+
+                            //Create related news object to add the database
+                            var dbRelated = new rlnews.DAL.Models.RelatedNews
+                            {
+                                ParentNewsId = parentId,
+                                ChildNewsId = dbObj.NewsId
+                            };
+
+                            dbContext.RelatedNews.Add(dbRelated);
+                        }
 
                         dbContext.NewsItems.Add(dbObj);
 

@@ -1,4 +1,4 @@
-﻿@model rlnews.Models.FeedViewModel
+﻿@model rlnews.ViewModels.FeedViewModel
 @using PagedList.Mvc;
 <div class="news-feed">
     @{
@@ -13,7 +13,7 @@
         var count = 0;
         foreach (var parentNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Parent"))
         {
-            var childCount = Model.NewsFeedList.Count(x => x.ClusterType == "Child" && x.ParentNewsId == parentNewsItem.NewsId);
+            var childCount = Model.RelatedNewsList.Count;
             count++;
 
             <div class="news-item @(count == 1 ? "item-first" : "")">
@@ -34,7 +34,7 @@
                     }
                     <p class="meta">
                         <a id="@parentNewsItem.NewsId" target="_blank" href="@parentNewsItem.SourceUrl" class="source view-tracker"><i class="fa fa-rss meta-icon"></i>@parentNewsItem.SourceName</a> - @parentNewsItem.PubDateTime.Day/@parentNewsItem.PubDateTime.Month/@parentNewsItem.PubDateTime.Year
-                        <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.Comments)</a>
+                        <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.CommentTotal)</a>
                         <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
                         <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
                         @if (childCount > 0)
@@ -47,13 +47,13 @@
                         <div class="related-articles">
                             <h4>Related News Articles</h4>
 
-                            @foreach (var childNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Child" && x.ParentNewsId == parentNewsItem.NewsId))
+                            @foreach (var childNewsItem in Model.RelatedNewsList.Where(x => x.ParentNewsId == parentNewsItem.NewsId))
                             {
 
-                                <a class="view-tracker" target="_blank" id="@childNewsItem.NewsId" href="@childNewsItem.SourceUrl">@childNewsItem.Title</a>
+                                <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl">@parentNewsItem.Title</a>
                                 <span class="child-meta">
-                                    @childNewsItem.SourceName -
-                                    @childNewsItem.PubDateTime.Day<span>/</span>@childNewsItem.PubDateTime.Month<span>/</span>@childNewsItem.PubDateTime.Year
+                                    @parentNewsItem.SourceName -
+                                    @parentNewsItem.PubDateTime.Day<span>/</span>@parentNewsItem.PubDateTime.Month<span>/</span>@parentNewsItem.PubDateTime.Year
                                 </span>
                                 <br/>
                             }
@@ -64,7 +64,7 @@
                 <div class="item-options">
                     <div class="pull-right">
                         <button class="like-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-thumbs-up"></i></button>
-                        <a id="scoreid-@parentNewsItem.NewsId" href="#" class="score-btn">@(parentNewsItem.Likes - parentNewsItem.Dislikes)</a>
+                        <a id="scoreid-@parentNewsItem.NewsId" href="#" class="score-btn">@(parentNewsItem.LikeTotal - parentNewsItem.DislikeTotal)</a>
                         <button class="dislike-btn" type="button" value="@parentNewsItem.NewsId"><i class="fa fa-thumbs-down"></i></button>
                     </div>
                 </div>

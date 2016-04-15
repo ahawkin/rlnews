@@ -161,14 +161,22 @@ namespace rlnews.importer.RssSources
                             SourceUrl = newsItem.SourceUrl,
                             ImageUrl = newsItem.ImageUrl,
                             PubDateTime = newsItem.PubDateTime,
-                            Likes = 0,
-                            Dislikes = 0,
-                            Comments = 0,
-                            Favourites = 0,
                             Views = 0,
-                            ClusterType = clusterType,
-                            ParentNewsId = parentId
+                            ClusterType = clusterType
                         };
+
+                        if (parentId > 0)
+                        {
+
+                            //Create related news object to add the database
+                            var dbRelated = new rlnews.DAL.Models.RelatedNews
+                            {
+                                ParentNewsId = parentId,
+                                ChildNewsId = dbObj.NewsId
+                            };
+
+                            dbContext.RelatedNews.Add(dbRelated);
+                        }
 
                         dbContext.NewsItems.Add(dbObj);
 

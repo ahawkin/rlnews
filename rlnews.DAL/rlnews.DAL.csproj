@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\CustomFeed.cs" />
+    <Compile Include="Models\RelatedNews.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="RlnewsDb.cs" />
     <Compile Include="Models\NewsItem.cs" />

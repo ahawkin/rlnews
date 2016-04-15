@@ -19,18 +19,8 @@ namespace rlnews.importer
 
         public DateTime PubDateTime { get; set; }
 
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
-
-        public int Comments { get; set; }
-
-        public int Favourites { get; set; }
-
         public int Views { get; set; }
 
         public string ClusterType { get; set; }
-
-        public int ParentNewsId { get; set; }
     }
 }

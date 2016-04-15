@@ -27,6 +27,8 @@ namespace rlnews.DAL
 
         public DbSet<NewsItem> NewsItems { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Activity> Activity { get; set; }
+        public DbSet<CustomFeed> CustomFeeds { get; set; }
+        public DbSet<RelatedNews> RelatedNews { get; set; }
     }
 }

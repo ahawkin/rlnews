@@ -14,5 +14,7 @@ namespace rlnews.DAL.Models
         public string Password { get; set; }
 
         public string PassSalt { get; set; }
+
+        public string TeamName { get; set; }
     }
 }
