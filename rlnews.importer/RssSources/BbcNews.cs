@@ -130,7 +130,6 @@ namespace rlnews.importer.RssSources
                 // create database context
                 var dbContext = new rlnews.DAL.RlnewsDb();
 
-
                 foreach (var newsItem in _feeds)
                 {
                     if (IsPostNew(newsItem.PubDateTime))
@@ -165,23 +164,36 @@ namespace rlnews.importer.RssSources
                             ClusterType = clusterType
                         };
 
+                        dbContext.NewsItems.Add(dbObj);
+
+                        //Save database changes
+                        dbContext.SaveChanges();
+
                         if (parentId > 0)
                         {
+
+                            //Get Id of child article just inserted into database
+                            var lastItem = dbContext.NewsItems.OrderByDescending(x => x.NewsId)
+                                                              .FirstOrDefault(x => x.ClusterType == "Child");
+                            var lastNewsId = 0;
+
+                            if (lastItem != null)
+                            {
+                                lastNewsId = lastItem.NewsId;
+                            }
 
                             //Create related news object to add the database
                             var dbRelated = new rlnews.DAL.Models.RelatedNews
                             {
                                 ParentNewsId = parentId,
-                                ChildNewsId = dbObj.NewsId
+                                ChildNewsId = lastNewsId
                             };
 
                             dbContext.RelatedNews.Add(dbRelated);
+
+                            //Save database changes
+                            dbContext.SaveChanges();
                         }
-
-                        dbContext.NewsItems.Add(dbObj);
-
-                        //Save database changes
-                        dbContext.SaveChanges();
                     }
                 }
 

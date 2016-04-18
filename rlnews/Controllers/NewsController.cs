@@ -131,6 +131,7 @@ namespace rlnews.Controllers
         public List<RelatedNews> RealtedNewsList()
         {
             var dbContext = new rlnews.DAL.RlnewsDb();
+
             var relatedNews = dbContext.RelatedNews.ToList();
 
             return relatedNews;

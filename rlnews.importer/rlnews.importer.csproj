@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Distance.cs" />
     <Compile Include="NewsItem.cs" />
+    <Compile Include="RssSources\Dailymail.cs" />
     <Compile Include="RssSources\TheGuardian.cs" />
     <Compile Include="StartImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

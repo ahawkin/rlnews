@@ -13,7 +13,7 @@
         var count = 0;
         foreach (var parentNewsItem in Model.NewsFeedList.Where(x => x.ClusterType == "Parent"))
         {
-            var childCount = Model.RelatedNewsList.Count;
+            var childCount = Model.RelatedNewsList.Count(x => x.ParentNewsId == parentNewsItem.NewsId);
             count++;
 
             <div class="news-item @(count == 1 ? "item-first" : "")">
@@ -47,15 +47,16 @@
                         <div class="related-articles">
                             <h4>Related News Articles</h4>
 
-                            @foreach (var childNewsItem in Model.RelatedNewsList.Where(x => x.ParentNewsId == parentNewsItem.NewsId))
+                            @foreach (var relatedNewsItem in Model.RelatedNewsList.Where(x => x.ParentNewsId == parentNewsItem.NewsId)
+                                                                                   .SelectMany(child => Model.NewsFeedList
+                                                                                   .Where(x => x.NewsId == child.ChildNewsId && x.ClusterType == "Child")))
                             {
-
-                                <a class="view-tracker" target="_blank" id="@parentNewsItem.NewsId" href="@parentNewsItem.SourceUrl">@parentNewsItem.Title</a>
+                                <a class="view-tracker" target="_blank" id="@relatedNewsItem.NewsId" href="@relatedNewsItem.SourceUrl">@relatedNewsItem.Title</a>
                                 <span class="child-meta">
-                                    @parentNewsItem.SourceName -
-                                    @parentNewsItem.PubDateTime.Day<span>/</span>@parentNewsItem.PubDateTime.Month<span>/</span>@parentNewsItem.PubDateTime.Year
-                                </span>
-                                <br/>
+                                        @relatedNewsItem.SourceName -
+                                        @relatedNewsItem.PubDateTime.Day<span>/</span>@relatedNewsItem.PubDateTime.Month<span>/</span>@relatedNewsItem.PubDateTime.Year
+                                    </span>
+                                <br />
                             }
 
                         </div>

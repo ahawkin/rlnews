@@ -334,7 +334,8 @@ namespace rlnews.importer
             //Generic rugby words
             {"rugby", true },
             {"league", true },
-            {"super", true }
+            {"super", true },
+            {"cup", true },
         };
 
         /// <summary>

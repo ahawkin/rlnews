@@ -17,6 +17,7 @@ namespace rlnews.importer
             Console.WriteLine(" ");
             ImportBbcNews();
             ImportTheGuardian();
+            ImportDailymail();
             Console.WriteLine("==========================================");
             Console.WriteLine("Import complete - Total items imported: " + _totalImported);
             Console.WriteLine("==========================================");
@@ -49,6 +50,19 @@ namespace rlnews.importer
         }
 
         /// <summary>
+        /// Executes the import of RSS feeds from BBC News
+        /// </summary>
+        private void ImportDailymail()
+        {
+            Dailymail dailymail = new Dailymail();
+            Console.WriteLine("Importing Dailymail RSS Feeds...");
+            dailymail.StartImport();
+            Console.WriteLine(dailymail.ReturnImportMessage());
+            Console.WriteLine(" ");
+            _totalImported = _totalImported + dailymail.ReturnImportNumber();
+        }
+
+        /// <summary>
         /// Test method for distance - Should be done as unit test in future
         /// </summary>
         private void TestDistance()
@@ -58,7 +72,7 @@ namespace rlnews.importer
             string test1 = "";
             string test2 = "";
 
-            Console.WriteLine(distance.GetMatchScore(test1, test2));
+            Console.WriteLine("Match score = " + distance.GetMatchScore(test1, test2));
         }
 
         /// <summary>

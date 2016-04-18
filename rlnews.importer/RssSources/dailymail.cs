@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace rlnews.importer.RssSources
 {
-    public class TheGuardian
+    public class Dailymail
     {
         private int _importCount;
         private string _importMessage;
@@ -55,7 +55,7 @@ namespace rlnews.importer.RssSources
         {
             try
             {
-                string rssUrl = "http://www.theguardian.com/sport/rugbyleague/rss";
+                string rssUrl = "http://www.dailymail.co.uk/sport/rugbyleague/index.rss";
 
                 XDocument feedXml = XDocument.Load(rssUrl);
                 XNamespace media = XNamespace.Get("http://search.yahoo.com/mrss/");
@@ -65,13 +65,13 @@ namespace rlnews.importer.RssSources
                          let title = feed.Element("title")
                          where title != null
                          let description = feed.Element("description")
-                         where description != null 
+                         where description != null
                          let sourceUrl = feed.Element("link")
                          where sourceUrl != null
                          let pubDateTime = feed.Element("pubDate")
                          where pubDateTime != null
-                         let imageUrl = feed.Elements(media + "content")
-                                         .Where(i => i.Attribute("width").Value == "140")
+                         let imageUrl = feed.Elements(media + "thumbnail")
+                                         .Where(i => i.Attribute("width").Value == "154")
                                          .Select(i => i.Attribute("url").Value).FirstOrDefault()
                          where imageUrl != null
                          select new NewsItem()
@@ -79,7 +79,7 @@ namespace rlnews.importer.RssSources
                              Title = _validate.LimitLength(title.Value),
                              Description = _validate.LimitLength(description.Value),
                              SourceUrl = sourceUrl.Value,
-                             SourceName = "The Guardian",
+                             SourceName = "Dailymail",
                              ImageUrl = imageUrl,
                              PubDateTime = DateTime.Parse(pubDateTime.Value)
                          };
@@ -98,7 +98,7 @@ namespace rlnews.importer.RssSources
             var dbContext = new rlnews.DAL.RlnewsDb();
             _lastestNewsItem = dbContext.NewsItems
                                    .OrderByDescending(x => x.NewsId)
-                                   .Where(x => x.SourceName == "The Guardian")
+                                   .Where(x => x.SourceName == "Dailymail")
                                    .Take(1)
                                    .ToList();
 
@@ -199,16 +199,16 @@ namespace rlnews.importer.RssSources
 
                 if (_importCount == 0)
                 {
-                    _importMessage = "No new posts found from The Guardian.";
+                    _importMessage = "No new posts found from The Dailymail.";
                 }
                 else
                 {
-                    _importMessage = "Successfully imported '" + _importCount + "' news items from The Guardian.";
+                    _importMessage = "Successfully imported '" + _importCount + "' news items from The Dailymail.";
                 }
             }
             catch (Exception ex)
             {
-                _importMessage = "The Guardian import failed: " + ex;
+                _importMessage = "The Dailymail import failed: " + ex;
             }
         }
     }
