@@ -1,9 +1,27 @@
 ﻿@{
     ViewBag.Title = "Your Team";
 }
+
 <section class="headlines clearfix">
+    @if (Session["UserId"] == null)
+    {
+        <div class="modal fade" id="lockedModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="myModalLabel">Please log in or register to use My Team</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/account/register" class="btn primary-btn">Register</a>
+                        <a href="/account/login" class="btn primary-btn">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="col-left">
-        <div class="rl-header" style="background-image: url(/Assets/img/cas.png)">
+        <div class="rl-header">
             <div class="sm-container">
                 <h1>My Team Headlines</h1>
                 <p>Up to date team headlines for @ViewData["TeamName"]</p>
@@ -18,7 +36,7 @@
                 <a href="/news/popular" id="popular">Most Popular</a>
                 <a href="/news/discussed" id="discussed">Most Discussed</a>
                 <div class="option-divider"> | </div>
-                <a>Create Feed <i class="fa fa-plus"></i></a>
+                <a>Change Team <i class="fa fa-pencil"></i></a>
                 <select class="hide">
                     <option>Past 24h</option>
                     <option>Past Week</option>

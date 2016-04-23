@@ -142,3 +142,16 @@ $(document).ready(function () {
 
     });
 });
+
+//Hide related news on page load
+$(document).ready(function () {
+    $(window).load(function () {
+        $('#lockedModal').modal('show');
+    });
+
+    $('#lockedModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    })
+});
+

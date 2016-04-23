@@ -39,12 +39,23 @@ namespace rlnews.Controllers
         // Register
         public ActionResult Register()
         {
-            return View();
+            var teamList = new UserViewModel()
+            {
+                TeamList = TeamList()
+            };  
+
+            return View(teamList);
         }
 
         [HttpPost]
         public ActionResult Register(UserViewModel registerForm)
         {
+
+            var teamList = new UserViewModel()
+            {
+                TeamList = TeamList()
+            };
+
             if (ModelState.IsValid)
             {
                 using (var dbContext = new rlnews.DAL.RlnewsDb())
@@ -75,6 +86,7 @@ namespace rlnews.Controllers
                         dbUser.Email = registerForm.Email;
                         dbUser.Password = hashedPass;
                         dbUser.PassSalt = salt;
+                        dbUser.TeamName = registerForm.TeamName;
 
                         dbContext.Users.Add(dbUser);
 
@@ -87,7 +99,7 @@ namespace rlnews.Controllers
                 }
             }
             
-            return View();
+            return View(teamList);
         }
 
         //Login 
@@ -176,6 +188,77 @@ namespace rlnews.Controllers
             byte[] hash = shaHashString.ComputeHash(bytes);
 
             return ByteArrayToHexString(hash);
+        }
+
+        //Rugby League Team List
+        public List<SelectListItem> TeamList()
+        {
+            List<SelectListItem> teamList = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Castleford Tigers",
+                    Value = "Castleford Tigers",
+                    Selected = true
+                },
+                new SelectListItem
+                {
+                    Text = "Warrington Wolves",
+                    Value = "Warrington Wolves",
+                },
+                new SelectListItem
+                {
+                    Text = "Wigan Warriors",
+                    Value = "Wigan Warriors"
+                },
+                new SelectListItem
+                {
+                    Text = "Catalans Dragons",
+                    Value = "Catalans Dragons"
+                },
+                new SelectListItem
+                {
+                    Text = "Hull FC",
+                    Value = "Hull FC"
+                },
+                new SelectListItem
+                {
+                    Text = "St Helens",
+                    Value = "St Helens"
+                },
+                new SelectListItem
+                {
+                    Text = "Widnes Vikings",
+                    Value = "Widnes Vikings"
+                },
+                new SelectListItem
+                {
+                    Text = "Salford Red Devils",
+                    Value = "Salford Devils"
+                },
+                new SelectListItem
+                {
+                    Text = "Wakefield Wildcats",
+                    Value = "Wakefield Wildcats"
+                },
+                new SelectListItem
+                {
+                    Text = "Leeds Rhinos",
+                    Value = "Leeds Rhinos"
+                },
+                new SelectListItem
+                {
+                    Text = "Hull KR",
+                    Value = "Hull KR"
+                },
+                new SelectListItem
+                {
+                    Text = "Huddersfield Giants",
+                    Value = "Huddersfield Giants"
+                }
+            };
+
+            return teamList;
         }
 
         #endregion

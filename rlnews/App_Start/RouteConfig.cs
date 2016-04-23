@@ -17,8 +17,8 @@ namespace rlnews
 
             routes.MapRoute(
                  "MyTeamRoute",
-                 "my-team",
-                 new { controller = "MyTeam", action = "Index" }
+                 "myteam",
+                 new { controller = "MyTeam", action = "Index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

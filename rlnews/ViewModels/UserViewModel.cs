@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace rlnews.ViewModels
 {
@@ -21,8 +22,14 @@ namespace rlnews.ViewModels
         public string Password { get; set; }
 
         [Display(Name="Confirm Password")]
-        [Compare("Password", ErrorMessage = "Passwords don't match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Passwords don't match.")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Select Rugby Team")]
+        [Required(ErrorMessage = "Team is required.")]
+        public string TeamName { get; set; }
+
+        public List<SelectListItem> TeamList { get; set; } 
     }
 }
