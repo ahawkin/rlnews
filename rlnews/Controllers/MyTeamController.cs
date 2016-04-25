@@ -51,7 +51,153 @@ namespace rlnews.Controllers
 
                 return View("~/Views/MyTeam/Index.cshtml", newsModel);
             }
-            else
+
+            return RedirectToAction("login");
+        }
+
+        //Get Most Popular News
+        public ActionResult Popular(int? page)
+        {
+            var userTeam = GetUserTeam();
+
+            if (userTeam != null)
+            {
+                ViewData["TeamName"] = userTeam;
+                ViewData["FeedTitle"] = "Latest News";
+
+                string[] teamNameSegments = userTeam.Split(' ');
+
+                var teamSegment1 = teamNameSegments[0];
+                var teamSegment2 = teamNameSegments[1];
+
+                int pageSize = 15;
+                int pageNumber = (page ?? 1);
+
+                DateTime dateTime = DateTime.Now;
+                DateTime now = DateTime.Now;
+                dateTime = dateTime.AddHours(-24);
+
+                var dbContext = new rlnews.DAL.RlnewsDb();
+                var dbObj = dbContext.NewsItems
+                    .OrderByDescending(x => x.Views)
+                    .Where(x => x.Title.Contains(teamSegment1) ||
+                                x.Description.Contains(teamSegment1) ||
+                                x.Title.Contains(teamSegment2) ||
+                                x.Description.Contains(teamSegment2))
+                    .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                    .Where(x => x.Views > 0)
+                    .ToPagedList(pageNumber, pageSize);
+
+                var newsModel = new FeedViewModel
+                {
+                    NewsFeedList = dbObj,
+                    SidebarList = SidebarHeadlines()
+                };
+
+                return View("~/Views/MyTeam/Index.cshtml", newsModel);
+            }
+
+            return RedirectToAction("login");
+        }
+
+        //Get Trending News
+        public ActionResult Trending(int? page)
+        {
+            var userTeam = GetUserTeam();
+
+            if (userTeam != null)
+            {
+                ViewData["TeamName"] = userTeam;
+                ViewData["FeedTitle"] = "Latest News";
+
+                string[] teamNameSegments = userTeam.Split(' ');
+
+                var teamSegment1 = teamNameSegments[0];
+                var teamSegment2 = teamNameSegments[1];
+
+                int pageSize = 15;
+                int pageNumber = (page ?? 1);
+
+                DateTime dateTime = DateTime.Now;
+                DateTime now = DateTime.Now;
+                dateTime = dateTime.AddHours(-24);
+
+                var dbContext = new rlnews.DAL.RlnewsDb();
+                var dbObj = dbContext.NewsItems
+                    .OrderByDescending(x => x.LikeTotal)
+                    .Where(x => x.Title.Contains(teamSegment1) ||
+                                x.Description.Contains(teamSegment1) ||
+                                x.Title.Contains(teamSegment2) ||
+                                x.Description.Contains(teamSegment2)                               
+                          )
+                    .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                    .Where(x => x.LikeTotal > 0)
+                    .ToPagedList(pageNumber, pageSize);
+
+                var newsModel = new FeedViewModel
+                {
+                    NewsFeedList = dbObj,
+                    SidebarList = SidebarHeadlines()
+                };
+
+                return View("~/Views/MyTeam/Index.cshtml", newsModel);
+            }
+
+            return RedirectToAction("login");
+        }
+
+        //Get Most Discussed News
+        public ActionResult Discussed(int? page)
+        {
+            var userTeam = GetUserTeam();
+
+            if (userTeam != null)
+            {
+                ViewData["TeamName"] = userTeam;
+                ViewData["FeedTitle"] = "Latest News";
+
+                string[] teamNameSegments = userTeam.Split(' ');
+
+                var teamSegment1 = teamNameSegments[0];
+                var teamSegment2 = teamNameSegments[1];
+
+                int pageSize = 15;
+                int pageNumber = (page ?? 1);
+
+                DateTime dateTime = DateTime.Now;
+                DateTime now = DateTime.Now;
+                dateTime = dateTime.AddHours(-24);
+
+                var dbContext = new rlnews.DAL.RlnewsDb();
+                var dbObj = dbContext.NewsItems
+                    .OrderByDescending(x => x.CommentTotal)
+                    .Where(x => x.Title.Contains(teamSegment1) ||
+                                x.Description.Contains(teamSegment1) ||
+                                x.Title.Contains(teamSegment2) ||
+                                x.Description.Contains(teamSegment2)
+                          )
+                    .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                    .Where(x => x.CommentTotal > 0)
+                    .ToPagedList(pageNumber, pageSize);
+
+                var newsModel = new FeedViewModel
+                {
+                    NewsFeedList = dbObj,
+                    SidebarList = SidebarHeadlines()
+                };
+
+                return View("~/Views/MyTeam/Index.cshtml", newsModel);
+            }
+
+            return RedirectToAction("login");
+        }
+
+        //Get Trending News
+        public ActionResult Login(int? page)
+        {
+            var userTeam = GetUserTeam();
+
+            if (userTeam == null)
             {
                 ViewData["TeamName"] = "Castleford Tigers";
                 ViewData["FeedTitle"] = "Castleford Tigers";
@@ -76,6 +222,8 @@ namespace rlnews.Controllers
 
                 return View("~/Views/MyTeam/Index.cshtml", newsModel);
             }
+
+            return RedirectToAction("latest");
         }
 
         public List<NewsItem> SidebarHeadlines()

@@ -76,8 +76,8 @@ namespace rlnews.importer.RssSources
                          where imageUrl != null
                          select new NewsItem()
                          {
-                             Title = _validate.LimitLength(title.Value),
-                             Description = _validate.LimitLength(description.Value),
+                             Title = _validate.TrimNewsLength(title.Value),
+                             Description = _validate.TrimNewsLength(description.Value),
                              SourceUrl = sourceUrl.Value,
                              SourceName = "The Guardian",
                              ImageUrl = imageUrl,
@@ -138,7 +138,14 @@ namespace rlnews.importer.RssSources
                         string clusterType = null;
                         int parentId = 0;
 
-                        parentId = distance.CheckRelated(newsItem.Title);
+                        DateTime nowMinus24 = DateTime.Now;
+                        DateTime now = DateTime.Now;
+                        nowMinus24 = nowMinus24.AddHours(-24);
+
+                        if (newsItem.PubDateTime > nowMinus24 && newsItem.PubDateTime <= now)
+                        {
+                            parentId = distance.CheckRelated(newsItem.Title);
+                        }
 
                         if (parentId > 0)
                         {
@@ -155,9 +162,9 @@ namespace rlnews.importer.RssSources
                         //create  news item object to add to database
                         var dbObj = new rlnews.DAL.Models.NewsItem
                         {
-                            Title = _validate.RemoveHtml(newsItem.Title),
+                            Title = _validate.TrimNewsHtml(newsItem.Title),
                             SourceName = newsItem.SourceName,
-                            Description = _validate.RemoveHtml(newsItem.Description),
+                            Description = _validate.TrimNewsHtml(newsItem.Description),
                             SourceUrl = newsItem.SourceUrl,
                             ImageUrl = newsItem.ImageUrl,
                             PubDateTime = newsItem.PubDateTime,
@@ -172,21 +179,11 @@ namespace rlnews.importer.RssSources
 
                         if (parentId > 0)
                         {
-                            //Get Id of child article just inserted into database
-                            var lastItem = dbContext.NewsItems.OrderByDescending(x => x.NewsId)
-                                                              .FirstOrDefault(x => x.ClusterType == "Child");
-                            var lastNewsId = 0;
-
-                            if (lastItem != null)
-                            {
-                                lastNewsId = lastItem.NewsId;
-                            }
-
                             //Create related news object to add the database
                             var dbRelated = new rlnews.DAL.Models.RelatedNews
                             {
                                 ParentNewsId = parentId,
-                                ChildNewsId = lastNewsId
+                                ChildNewsId = dbObj.NewsId
                             };
 
                             dbContext.RelatedNews.Add(dbRelated);

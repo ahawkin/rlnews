@@ -87,6 +87,16 @@ label {
     }
 }
 
+@media(max-width: 1200px) {
+    .col-left {
+        width:100%;
+    }
+
+    .col-right {
+        display:none;
+    }
+}
+
 /* NAVIGATION */
 
 .navbar-inverse {
@@ -159,9 +169,73 @@ label {
 }
 
 @media(max-width: 768px) {
+
+    .navbar-inverse {
+        padding-bottom: 13px;
+
+        .navbar-nav {
+            li {
+                a {
+                    color:@light-grey;
+                    padding: 15px 15px 15px 15px;
+                    border-bottom:none; 
+                    &:hover {
+                        color:@light-grey;
+                        background:none;
+                        border-bottom:none; 
+                    }
+
+                    i {
+                        margin-right:5px;
+                        color:@primary1;
+                    }
+                }
+            }
+        }
+
+        .nav-btn {
+            padding: 15px 15px 15px 15px !important;
+            margin:0;
+            border: none !important;
+            background:none !important;
+            border-radius: 0;
+            color:@light-grey !important;
+            &:hover {
+                background:none !important;
+                color:@light-grey !important;
+            }
+            &.nav-btn-last {
+                margin-right: 0 !important;
+            }
+        }
+
+        .nav-active {
+            color:@light-grey !important;
+            background:none !important;
+            border-bottom:none!important; 
+        }
+    }
+
     .navbar-collapse {
         padding-left:15px;
         padding-right:15px;
+        border:none;
+        box-shadow:none !important;
+        padding-top:6px;
+    }
+
+    .navbar-toggle {
+        margin-bottom: 0;
+        margin-top: 19px;       
+        border: none;
+
+        &:hover {
+            background:none !important;
+        }
+    }
+
+    .nav-right {
+        float:none !important;
     }
 }
 
@@ -395,4 +469,41 @@ label {
         }
     }
 
+}
+
+//Forms
+.form-horizontal {
+    margin-top:50px;
+    font-size: 16px;
+
+    .team-select {
+        select {
+            border: 1px solid #ccc;
+            width: 190px;
+            padding: 6px 12px;
+            border-radius:4px;
+        }
+    }
+
+    .form-button {
+        margin-top:30px;
+    }
+
+    .validation-summary-errors  {
+        li {
+            background: #FA1515!important;
+            list-style: none;
+            color: white;
+            margin-bottom: 40px;
+            padding: 10px;
+        }
+    }
+
+    .register-message {
+        background: @primary1;
+        list-style: none;
+        color: white;
+        margin-bottom: 40px;
+        padding: 10px;
+    }
 }

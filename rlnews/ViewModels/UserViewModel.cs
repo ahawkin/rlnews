@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using rlnews.DAL.Models;
 
 namespace rlnews.ViewModels
 {
@@ -31,5 +32,7 @@ namespace rlnews.ViewModels
         public string TeamName { get; set; }
 
         public List<SelectListItem> TeamList { get; set; } 
+
+        public List<Activity> ActivityList { get; set; }
     }
 }

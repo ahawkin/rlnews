@@ -6,11 +6,12 @@ namespace rlnews.importer
 {
     /// <summary>
     /// Tool to remove unwanted words such as 'the' or 'a'.
+    /// Sam Allen. (2016). Stopwords [Online]. Available From: <http://www.dotnetperls.com/stopword-dictionary>. [Accessed 20th April 2016]
     /// </summary>
     public class StopWords
     {
         /// <summary>
-        /// Words we want to remove.
+        /// Remove stop words
         /// </summary>
         private static readonly Dictionary<string, bool> Stops = new Dictionary<string, bool>
         {

@@ -34,9 +34,9 @@
                     }
                     <p class="meta">
                         <a id="@parentNewsItem.NewsId" target="_blank" href="@parentNewsItem.SourceUrl" class="source view-tracker"><i class="fa fa-rss meta-icon"></i>@parentNewsItem.SourceName</a> - @parentNewsItem.PubDateTime.Day/@parentNewsItem.PubDateTime.Month/@parentNewsItem.PubDateTime.Year
-                        <a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.CommentTotal)</a>
+                        @*<a href="#"><i class="fa fa-comments meta-icon"></i>Comments (@parentNewsItem.CommentTotal)</a>
                         <a href="#"><i class="fa fa-star meta-icon"></i>Favourite</a>
-                        <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>
+                        <a href="#"><i class="fa fa-share-alt meta-icon"></i>Share</a>*@
                         @if (childCount > 0)
                         {
                             <span><i class="fa fa-eye meta-icon"></i></span><a class="view-related" href="#">View Related Articles</a>

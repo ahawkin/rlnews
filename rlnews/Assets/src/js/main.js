@@ -21,7 +21,7 @@ $(function () {
             $('.nav a#news').addClass('nav-active');
             $('.nav a#myteam').removeClass('nav-active');
             break;
-        case "my-team":
+        case "myteam":
             $('.nav a#myteam').addClass('nav-active');
             $('.nav a#news').removeClass('nav-active');
             break;

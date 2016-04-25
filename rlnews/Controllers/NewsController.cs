@@ -40,14 +40,20 @@ namespace rlnews.Controllers
         //Get Most Popular News
         public ActionResult Popular(int? page)
         {
-
             ViewData["FeedTitle"] = "Popular News";
 
             int pageSize = 15;
             int pageNumber = (page ?? 1);
 
+            DateTime dateTime = DateTime.Now;
+            DateTime now = DateTime.Now;
+            dateTime = dateTime.AddHours(-24);
+
             var dbContext = new rlnews.DAL.RlnewsDb();
-            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Views).ToPagedList(pageNumber, pageSize);
+            var dbObj = dbContext.NewsItems.OrderByDescending(x => x.Views)
+                                 .Where(x => x.PubDateTime > dateTime && x.PubDateTime <= now)
+                                 .Where(x => x.Views > 0)
+                                 .ToPagedList(pageNumber, pageSize);
 
             var newsModel = new FeedViewModel
             {
@@ -150,8 +156,6 @@ namespace rlnews.Controllers
 
                 dbNews.LikeTotal = dbNews.LikeTotal + 1;
 
-                dbContext.NewsItems.Add(dbNews);
-
                 //Create a dislike activity object and insert it into the database
                 var dbActvity = new rlnews.DAL.Models.Activity
                 {
@@ -163,6 +167,7 @@ namespace rlnews.Controllers
                 };
 
                 dbContext.Activity.Add(dbActvity);
+
                 dbContext.SaveChanges();
 
                 //Return the new score for this news item
@@ -185,8 +190,6 @@ namespace rlnews.Controllers
 
                 dbNews.DislikeTotal = dbNews.DislikeTotal + 1;
 
-                dbContext.NewsItems.Add(dbNews);
-
                 //Create a dislike activity object and insert it into the database
                 var dbActvity = new rlnews.DAL.Models.Activity
                 {
@@ -198,6 +201,7 @@ namespace rlnews.Controllers
                 };
 
                 dbContext.Activity.Add(dbActvity);
+
                 dbContext.SaveChanges();
 
                 //Return the new score for this news item

@@ -18,7 +18,28 @@ namespace rlnews.Controllers
         {
             if (Session["UserId"] != null)
             {
-                return View();
+
+                var userId = Int32.Parse(Session["UserId"].ToString());
+
+                using (var dbContext = new rlnews.DAL.RlnewsDb())
+                {
+                    var user = dbContext.Users.FirstOrDefault(x => x.UserId == userId);
+
+                    var userActivity = dbContext.Activity.Where(x => x.UserId == userId).ToList();
+
+                    if (user != null)
+                    {
+                        var userDetails = new UserViewModel()
+                        {
+                            Email = user.Email,
+                            Username = user.Username,
+                            TeamName = user.TeamName,
+                            ActivityList = userActivity
+                        };
+
+                        return View(userDetails);
+                    }
+                }
             }
 
             return RedirectToAction("Login");
@@ -35,6 +56,59 @@ namespace rlnews.Controllers
             return RedirectToAction("Login");
         }
 
+        [HttpPost]
+        public ActionResult Settings(UserViewModel settingsForm)
+        {
+            var teamList = new UserViewModel()
+            {
+                TeamList = TeamList()
+            };
+
+            if (ModelState.IsValid)
+            {
+                using (var dbContext = new rlnews.DAL.RlnewsDb())
+                {
+                    //Check email address and username are unique
+                    var takenEmail = dbContext.Users.FirstOrDefault(x => x.Email == settingsForm.Email);
+                    var takenUsername = dbContext.Users.FirstOrDefault(x => x.Username == settingsForm.Username);
+
+                    if (takenEmail != null)
+                    {
+                        ModelState.AddModelError("", "Sorry - Email address already registered to an account.");
+                    }
+
+                    if (takenUsername != null)
+                    {
+                        ModelState.AddModelError("", "Sorry - Username has already been taken.");
+                    }
+
+                    //If validation is passed register user
+                    if (ModelState.IsValid)
+                    {
+                        var dbUser = new rlnews.DAL.Models.User();
+
+                        var salt = GenerateSalt(10);
+                        var hashedPass = GenerateHash(settingsForm.Password, salt);
+
+                        dbUser.Username = settingsForm.Username;
+                        dbUser.Email = settingsForm.Email;
+                        dbUser.Password = hashedPass;
+                        dbUser.PassSalt = salt;
+                        dbUser.TeamName = settingsForm.TeamName;
+
+                        dbContext.Users.Add(dbUser);
+
+                        dbContext.SaveChanges();
+
+                        ModelState.Clear();
+
+                        ViewBag.Message = "Thank you " + settingsForm.Username + ", your account has been successfully registered.";
+                    }
+                }
+            }
+
+            return View(teamList);
+        }
 
         // Register
         public ActionResult Register()
@@ -122,7 +196,7 @@ namespace rlnews.Controllers
 
                     if (hashedPass != user.Password)
                     {
-                        ModelState.AddModelError("", "password incorrect");
+                        ModelState.AddModelError("", "Sorry, the email/password you entered was incorrect");
                     }
                     else
                     {
@@ -136,7 +210,7 @@ namespace rlnews.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "email incorrect");
+                    ModelState.AddModelError("", "Sorry, the email/password you entered was incorrect");
                 }
             }
 
@@ -157,7 +231,12 @@ namespace rlnews.Controllers
 
         #region Helper Methods
 
-        //Convert byte array to hex string
+        /// <summary>
+        /// Convert byte array to hex string
+        /// Chris Duran (2014) C# MD5 & SHA 256 Hash Demo [Online video], 9 March. Available from: <https://www.youtube.com/watch?v=JyfgHxe7BL4> [Accessed 22 April 2012].
+        /// </summary>
+        /// <param name="byteArray"></param>
+        /// <returns></returns>
         public string ByteArrayToHexString(byte[] byteArray)
         {
             StringBuilder hex = new StringBuilder(byteArray.Length*2);
@@ -170,7 +249,12 @@ namespace rlnews.Controllers
             return hex.ToString();
         }
 
-        //Generate a random salt
+        /// <summary>
+        /// Generate Random Salt
+        /// Chris Duran (2014) C# Salting & Hashing Passwords [Online video], 18 March. Available from: <https://www.youtube.com/watch?v=AU-4oLUV5VU> [Accessed 22 April 2012].
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
         public string GenerateSalt(int size)
         {
             var rand = new RNGCryptoServiceProvider();
@@ -180,7 +264,13 @@ namespace rlnews.Controllers
             return Convert.ToBase64String(buff);
         }
 
-        //Generate a hashed password
+        /// <summary>
+        /// Generate hash from password
+        /// Chris Duran (2014) C# Salting & Hashing Passwords [Online video], 18 March. Available from: <https://www.youtube.com/watch?v=AU-4oLUV5VU> [Accessed 22 April 2012].
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="salt"></param>
+        /// <returns></returns>
         public string GenerateHash(string input, string salt)
         {
             byte[] bytes = Encoding.UTF8.GetBytes(input + salt);

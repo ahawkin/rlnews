@@ -4,16 +4,19 @@
     ViewBag.Title = "Login";
 }
 
+<div class="rl-header">
+    <div class="sm-container text-center">
+        <h1>Login</h1>
+    </div>
+</div>
+
 <div class="container">
-    <h2>Login</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>User</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -31,9 +34,9 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-button">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Login" class="btn primary-btn pull-right" />
                 </div>
             </div>
         </div>

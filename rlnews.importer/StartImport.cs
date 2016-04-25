@@ -54,7 +54,7 @@ namespace rlnews.importer
         /// </summary>
         private void ImportDailymail()
         {
-            Dailymail dailymail = new Dailymail();
+            RssSource dailymail = new RssSource();
             Console.WriteLine("Importing Dailymail RSS Feeds...");
             dailymail.StartImport();
             Console.WriteLine(dailymail.ReturnImportMessage());
@@ -63,16 +63,18 @@ namespace rlnews.importer
         }
 
         /// <summary>
-        /// Test method for distance - Should be done as unit test in future
+        /// Test method for distance
         /// </summary>
-        private void TestDistance()
+        public int TestDistance(string inputString1, string inputString2)
         {
             Distance distance = new Distance();
 
-            string test1 = "";
-            string test2 = "";
+            string test1 = inputString1;
+            string test2 = inputString2;
 
             Console.WriteLine("Match score = " + distance.GetMatchScore(test1, test2));
+
+            return distance.GetMatchScore(test1, test2);
         }
 
         /// <summary>

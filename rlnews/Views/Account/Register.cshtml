@@ -5,21 +5,23 @@
     ViewBag.Title = "Register";
 }
 
-<div class="container">
+<div class="rl-header">
+    <div class="sm-container text-center">
+        <h1>Register</h1>
+    </div>
+</div>
 
-    <h2>Register</h2>
+<div class="container">
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>User</h4>
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @if (ViewBag.Message != null)
             {
-                <h4>@ViewBag.Message</h4>
+                <h4 class="register-message">@ViewBag.Message</h4>
             }
 
             <div class="form-group">
@@ -56,15 +58,15 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.TeamName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 team-select">
                     @Html.DropDownListFor(model => model.TeamName, Model.TeamList, htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.ValidationMessageFor(model => model.TeamName, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-button">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Register" class="btn primary-btn pull-right" />
                 </div>
             </div>
         </div>

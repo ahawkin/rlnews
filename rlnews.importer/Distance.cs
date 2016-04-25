@@ -7,6 +7,13 @@ namespace rlnews.importer
 {
     public class Distance
     {
+        /// <summary>
+        /// Compute Levenshtein Distance
+        /// Sam Allen. (2016). Levenshtein [Online]. Available From: <http://www.dotnetperls.com/levenshtein>. [Accessed 20th April 2016]
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public static int Compute(string s, string t)
         {
             int n = s.Length;
