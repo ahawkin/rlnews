@@ -2,7 +2,7 @@
 
 ***Incomplete / WIP***
 
-Rugby League news aggregation website developed for my final year project at University. News articles from RSS feeds are ingested, then clustered together using named entities which are identified by a using combination of string matching techniques such as Levenshtein distance and the removal of link words. 
+Rugby League news aggregation website developed for my final project in my third year at University. News articles from RSS feeds are ingested, then clustered together using named entities which are identified by a using combination of string matching techniques such as Levenshtein distance and the removal of link words. 
 
 * C# / ASP.NET MVC
 * Entity Framework
