@@ -75,9 +75,6 @@ namespace rlnews.importer
             titleRss = StopWords.RemoveStopwords(titleRss);
             titleDb = StopWords.RemoveStopwords(titleDb);
 
-            //Console.WriteLine(titleRss);
-            //Console.WriteLine(titleDb);
-
             string[] titleRssSplit = titleRss.Split(' ');
             string[] titleDbSplit = titleDb.Split(' ');
 
@@ -89,21 +86,12 @@ namespace rlnews.importer
 
                     matchedWords++;
 
-                    /* Debug
-                    Console.WriteLine(str + "matches" + titleDbSplit[i]);
-                    */
-
                     if (HasUpperCase(str) && HasUpperCase(titleDbSplit[i]))
                     {
                         nounScore = nounScore + 10;
                     }
                 }
             }
-
-            /* Debug
-            Console.WriteLine(matchedWords);
-            Console.WriteLine(nounScore);
-            */
 
             overallScore = matchedWords + nounScore;
 

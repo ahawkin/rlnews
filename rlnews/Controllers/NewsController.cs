@@ -213,7 +213,6 @@ namespace rlnews.Controllers
 
         public void AddViewToNewsItem(string newsid)
         {
-            //Update dislikes field for news items using passed news id 
             var dbContext = new rlnews.DAL.RlnewsDb();
 
             var dbObj = dbContext.NewsItems.Find(Int32.Parse(newsid));

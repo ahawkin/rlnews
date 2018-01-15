@@ -60,7 +60,6 @@ namespace rlnews.importer.RssSources
                 XDocument feedXml = XDocument.Load(rssUrl);
                 XNamespace media = XNamespace.Get("http://search.yahoo.com/mrss/");
 
-                //Fetch RSS feed
                 _feeds = from feed in feedXml.Descendants("item")
                          let title = feed.Element("title")
                          where title != null
@@ -84,7 +83,6 @@ namespace rlnews.importer.RssSources
                              PubDateTime = DateTime.Parse(pubDateTime.Value)
                          };
 
-                //Reserve fetched feed so the newest news item is last the be inserted
                 _feeds = _feeds.OrderBy(x => x.PubDateTime);
             }
             catch (Exception ex)

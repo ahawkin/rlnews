@@ -355,25 +355,17 @@ namespace rlnews.importer
         /// </summary>
         public static string RemoveStopwords(string input)
         {
-            // 1
-            // Split parameter into words
             var words = input.Split(Delimiters,
                 StringSplitOptions.RemoveEmptyEntries);
-            // 2
-            // Allocate new dictionary to store found words
+
             var found = new Dictionary<string, bool>();
-            // 3
-            // Store results in this StringBuilder
+   
             StringBuilder builder = new StringBuilder();
-            // 4
-            // Loop through all words
+
             foreach (string currentWord in words)
             {
-                // 5
-                // Convert to lowercase
                 string lowerWord = currentWord.ToLower();
-                // 6
-                // If this is a usable word, add it
+
                 if (!Stops.ContainsKey(lowerWord) &&
                     !found.ContainsKey(lowerWord))
                 {
@@ -381,8 +373,7 @@ namespace rlnews.importer
                     found.Add(lowerWord, true);
                 }
             }
-            // 7
-            // Return string with words removed
+
             return builder.ToString().Trim();
         }
     }
