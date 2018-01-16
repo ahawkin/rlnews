@@ -1,6 +1,6 @@
 # RLNews
 
-Rugby League news aggregation website developed for my final project in my third year at University. News articles from RSS feeds are ingested, then clustered together using named entities which are identified by a using combination of string matching techniques such as Levenshtein distance and the removal of link words. 
+Rugby League news aggregation website developed for my final project in my third year at University. News articles from RSS feeds are ingested, then clustered together using named entities which are identified by using combination of string matching techniques such as Levenshtein distance and the removal of link words. 
 
 * **Module:** Final Project
 * **Date:** Year 3 (2015/2016)
