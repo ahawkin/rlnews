@@ -2,18 +2,9 @@
 
 Rugby League news aggregation website developed for my final project in my third year at University. News articles from RSS feeds are ingested, then clustered together using named entities which are identified by a using combination of string matching techniques such as Levenshtein distance and the removal of link words. 
 
-* **Module:** Software Development
-* **Date:** Year 2 (2014/2015)
-* **Status:** Complete
-
-## Technology Stack
-
-* C# / ASP.NET MVC
-* Entity Framework
-* Bootstrap 3
-* JS / jQuery / AJAX
-* NPM / Gulp.JS / Less
-* Microsoft SQL Server
+* **Module:** Final Project
+* **Date:** Year 3 (2015/2016)
+* **Status:** Incomplete / WIP
 
 ## Preview
 
